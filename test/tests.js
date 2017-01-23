@@ -10,7 +10,7 @@ const qp = queryPromise(connection);
 
 const createPresent =   require('../services/controllers/createPresent.js');
 const editPresent =     require('../services/controllers/editPresent.js');
-const removePresents =  require('../services/controllers/removePresent.js');
+const removePresent =   require('../services/controllers/removePresent.js');
 const getPresents =     require('../services/controllers/getPresents.js');
 
 describe('Con los regalos puedo', function () {
@@ -58,8 +58,6 @@ describe('Con los regalos puedo', function () {
       "price": 50,
       "ammount": 2
     };
-
-
 
     createPresent(connection, present1)
         .then(_ => createPresent(connection, present2))
@@ -109,9 +107,9 @@ describe('Con los regalos puedo', function () {
         .then(_ => getPresents(connection))
         .then(function (presents) {
           const expected = [
-            Object.assign(modification, {
+            Object.assign({
               date: presents[0].date
-            })
+            }, modification)
           ];
 
           presents
@@ -137,15 +135,13 @@ describe('Con los regalos puedo', function () {
       "ammount": 2
     };
 
-
-
     createPresent(connection, present1)
         .then(_ => createPresent(connection, present2))
         .then(_ => removePresent(connection, 1))
         .then(_ => getPresents(connection))
         .then(function (presents) {
           const expected = [
-            Object.assign(present1, {
+            Object.assign(present2, {
               status: 'available',
               date: presents[0].date,
               id: 2
