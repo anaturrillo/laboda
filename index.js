@@ -10,16 +10,19 @@ const port = config.port;
 const app = express();
 
 const connection = mysql.createConnection(config.db_connect);
-initializeDB(connection)
-    .then(function (row) {
-      connection.end();
-    })
-    .catch(function (e) {
-      console.error(e)
-    });
 
 app.use(bodyParser.json());
 app.use('/api', sayHullo());
+
+initializeDB(connection)
+    .then(function (row) {
+      //hacer cosas
+
+    })
+    .then(_ => connection.end())
+    .catch(function (e) {
+      console.error(e)
+    });
 
 app.listen(port, function () {
   console.log('listening on port ' + port)
