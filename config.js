@@ -8,6 +8,12 @@ module.exports = {
     password : keys.dbpass,
     database : 'laboda'
   },
+  db_test_connect: {
+    host     : 'localhost',
+    user     : 'root',
+    password : keys.dbpass,
+    database : 'test'
+  },
   keys: {
     Client_id: keys.Client_id,
     Client_secret: keys.Client_secret

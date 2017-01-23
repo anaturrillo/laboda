@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
-const sayHullo = require('./services/sayHullo.js');
+const presents = require('./services/presents.js');
 const initializeDB = require('./initializeDB.js');
 
 const config = require('./config.js');
@@ -12,11 +12,11 @@ const app = express();
 const connection = mysql.createConnection(config.db_connect);
 
 app.use(bodyParser.json());
-app.use('/api', sayHullo());
 
 initializeDB(connection)
     .then(function (row) {
       //hacer cosas
+      app.use('/api/presents', presents(connection));
 
     })
     .then(_ => connection.end())
