@@ -88,7 +88,7 @@ describe('Como uno de los novios quiero', function () {
       "token": "random string"
     };
 
-    login(connection, weddingUser)
+    login(connection, post)
         .then(function (response) {
           response.should.be.eql(expected)
         })
@@ -105,7 +105,7 @@ describe('Como uno de los novios quiero', function () {
       "token": "random string"
     };
 
-    login(connection, weddingUser)
+    login(connection, post)
         .then(function (response) {
           response.should.be.eql(expected)
         })
@@ -121,7 +121,7 @@ describe('Como uno de los novios quiero', function () {
       "status": "no autorizado"
     };
 
-    login(connection, weddingUser)
+    login(connection, post)
         .then(function (response) {
           response.should.be.eql(expected)
         })
@@ -137,7 +137,7 @@ describe('Como uno de los novios quiero', function () {
       "status": "no autorizado"
     };
 
-    login(connection, weddingUser)
+    login(connection, post)
         .then(function (response) {
           response.should.be.eql(expected)
         })
