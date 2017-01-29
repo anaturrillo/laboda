@@ -143,6 +143,8 @@ describe('Como uno de los novios quiero', function () {
         })
   });
 
+  // tengo que modificar los tests para aceptar el uso de token, deberia loggearme para cada test?
+
   it('crear un regalo', function (done) {
     const present1 = {
       "token": "aaaa",
