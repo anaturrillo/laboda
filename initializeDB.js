@@ -1,6 +1,6 @@
 const queryPromise = require('./lib/queryPromise.js');
 module.exports = function (connection) {
-  const qp = queryPromise(connection)('');
+  const qp = queryPromise(connection);
 
   const availablePresents = 'CREATE TABLE IF NOT EXISTS availablePresents (' +
       'id INT AUTO_INCREMENT UNIQUE NOT NULL, ' +
