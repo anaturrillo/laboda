@@ -12,6 +12,8 @@ const createPresent =   require('../services/controllers/createPresent.js');
 const editPresent =     require('../services/controllers/editPresent.js');
 const removePresent =   require('../services/controllers/removePresent.js');
 const getPresents =     require('../services/controllers/getPresents.js');
+const buyPresent =      require('../services/controllers/buyPresent');
+const getGifts =        require('../services/controllers/getGifts');
 
 describe('Como invitado quiero', function () {
 
@@ -44,7 +46,7 @@ describe('Como invitado quiero', function () {
         })
   });
   
-  it('hacer un regalo escribiendo una dedicatoria', function (done) {
+  it('comprar un regalo', function (done) {
     
   });
   
@@ -57,6 +59,28 @@ describe('Como invitado quiero', function () {
   });
 
   
+});
+
+describe('Como sistema quier', function () {
+  beforeEach(function (done) {
+
+    connection.query('DROP TABLE IF EXISTS brideAndGroom',  function (err, result) {
+      if(err){
+        console.error(err);
+        done(err)
+      }else{
+        initializeDB(connection)
+            .then(function () {
+              done()
+            })
+            .catch(done)
+      }
+    });
+  });
+  
+  it('registrar un regalo comprado con éxito por un invitado', function (done) {
+    
+  })
 });
 
 describe('Como uno de los novios quiero', function () {
@@ -83,14 +107,11 @@ describe('Como uno de los novios quiero', function () {
       "password": "h00n3yM00n"
     };
 
-    const expected = {
-      "status": "logged_in",
-      "token": "random string"
-    };
-
     login(connection, post)
         .then(function (response) {
-          response.should.be.eql(expected)
+          response.status.should.be.equal("logged_in");
+          response.token.length.should.be.equal(5);
+          response.token.should.be.type("string");
         })
   });
 
@@ -100,14 +121,11 @@ describe('Como uno de los novios quiero', function () {
       "password": "h00n3yM00n"
     };
 
-    const expected = {
-      "status": "logged_in",
-      "token": "random string"
-    };
-
     login(connection, post)
         .then(function (response) {
-          response.should.be.eql(expected)
+          response.status.should.be.equal("logged_in");
+          response.token.length.should.be.equal(5);
+          response.token.should.be.type("string");
         })
   });
 
@@ -117,13 +135,9 @@ describe('Como uno de los novios quiero', function () {
       "password": "h00n3yM00n"
     };
 
-    const expected = {
-      "status": "no autorizado"
-    };
-
     login(connection, post)
         .then(function (response) {
-          response.should.be.eql(expected)
+          response.status.should.be.equal("not_authorized");
         })
   });
 
@@ -133,21 +147,14 @@ describe('Como uno de los novios quiero', function () {
       "password": "pepe"
     };
 
-    const expected = {
-      "status": "no autorizado"
-    };
-
     login(connection, post)
         .then(function (response) {
-          response.should.be.eql(expected)
+          response.status.should.be.equal("not_authorized");
         })
   });
 
-  // tengo que modificar los tests para aceptar el uso de token, deberia loggearme para cada test?
-
   it('crear un regalo', function (done) {
     const present1 = {
-      "token": "aaaa",
       "name": "Present name",
       "description": "Present description bla bla bla",
       "price": 50,
@@ -155,42 +162,45 @@ describe('Como uno de los novios quiero', function () {
     };
 
     const present2 = {
-      "token": "aaaa",
       "name": "2 Present name",
       "description": "2 Present description bla bla bla",
-      "price": 50,
-      "ammount": 2
+      "price": 65,
+      "ammount": 3
     };
 
     createPresent(connection, present1)
         .then(_ => createPresent(connection, present2))
         .then(_ => getPresents(connection))
         .then(function (presents) {
-          const expected = [
-            Object.assign(present1, {
-              status: 'available',
-              id: 1,
-              date: presents[0].date
-            }),
-            Object.assign(present2, {
-              status: 'available',
-              id: 2,
-              date: presents[1].date
-            })
-          ];
-          presents
-              .map(e => Object.assign({}, e))
-              .should.be.eql(expected);
+          const p1 = presents[0];
+          const p2 = presents[1];
+
+          p1.status.should.be.equal('available');
+          p1.id.should.be.equal(1);
+          p1.date.should.be.type('date');
+          p1.name.should.be.equal('Present name');
+          p1.description.should.be.equal('Present description bla bla bla');
+          p1.ammount.should.be.equal(2);
+          p1.price.should.be.equal(50);
+
+          p2.status.should.be.equal('available');
+          p2.id.should.be.equal(2);
+          p2.date.should.be.type('date');
+          p2.name.should.be.equal('2 Present name');
+          p2.description.should.be.equal('2 Present description bla bla bla');
+          p2.ammount.should.be.equal(3);
+          p2.price.should.be.equal(65);
         })
-        .then(done)
+        .then(_ => done())
         .catch(function (e) {
           done(e)
-        })
+        });
+
+
   });
 
   it('editar un regalo', function (done) {
     const present1 = {
-      "token": "aaaa",
       "name": "Present name",
       "description": "Present description bla bla bla",
       "price": 50,
@@ -210,15 +220,15 @@ describe('Como uno de los novios quiero', function () {
         .then(_ => editPresent(connection, modification))
         .then(_ => getPresents(connection))
         .then(function (presents) {
-          const expected = [
-            Object.assign({
-              date: presents[0].date
-            }, modification)
-          ];
+          const p1 = presents[0];
 
-          presents
-              .map(e => Object.assign({}, e))
-              .should.be.eql(expected);
+          p1.status.should.be.equal('available');
+          p1.id.should.be.equal(1);
+          p1.date.should.be.type('date');
+          p1.name.should.be.equal('Present name');
+          p1.description.should.be.equal('Present description bla bla bla');
+          p1.ammount.should.be.equal(2);
+          p1.price.should.be.equal(100);
         })
         .then(done)
         .catch(done)
@@ -226,7 +236,6 @@ describe('Como uno de los novios quiero', function () {
 
   it('borrar un regalo', function (done) {
     const present1 = {
-      "token": "aaaa",
       "name": "Present name",
       "description": "Present description bla bla bla",
       "price": 50,
@@ -234,16 +243,14 @@ describe('Como uno de los novios quiero', function () {
     };
 
     const present2 = {
-      "token": "aaaa",
       "name": "2 Present name",
       "description": "2 Present description bla bla bla",
-      "price": 50,
-      "ammount": 2
+      "price": 65,
+      "ammount": 3
     };
 
     const post = {
-      "token": "aaaa",
-      "id": 1
+      id: 1
     };
 
     createPresent(connection, present1)
@@ -251,24 +258,58 @@ describe('Como uno de los novios quiero', function () {
         .then(_ => removePresent(connection, post))
         .then(_ => getPresents(connection))
         .then(function (presents) {
-          const expected = [
-            Object.assign(present2, {
-              status: 'available',
-              date: presents[0].date,
-              id: 2
-            })
-          ];
+          const p2 = presents[1];
 
-          presents
-              .map(e => Object.assign({}, e))
-              .should.be.eql(expected);
+          p2.status.should.be.equal('available');
+          p2.id.should.be.equal(2);
+          p2.date.should.be.type('date');
+          p2.name.should.be.equal('2 Present name');
+          p2.description.should.be.equal('2 Present description bla bla bla');
+          p2.ammount.should.be.equal(3);
+          p2.price.should.be.equal(65);
+
         })
         .then(done)
         .catch(done)
   });
   
   it('ver los regalos que me hicieron, con el detalle de quién me lo regaló y la dedicatoria que me escribieron', function (done) {
-    
+    const present1 = {
+      "name": "Present name",
+      "description": "Present description bla bla bla",
+      "price": 50,
+      "ammount": 2
+    };
+
+    const present2 = {
+      "name": "2 Present name",
+      "description": "2 Present description bla bla bla",
+      "price": 65,
+      "ammount": 3
+    };
+
+    const buy = {
+      id: 1
+    };
+
+    createPresent(connection, present1)
+        .then(_ => createPresent(connection, present2))
+        .then(_ => buyPresent)
+        .then(_ => getGifts(connection))
+        .then(function (gifts) {
+          const p2 = presents[1];
+
+          p2.status.should.be.equal('available');
+          p2.id.should.be.equal(2);
+          p2.date.should.be.type('date');
+          p2.name.should.be.equal('2 Present name');
+          p2.description.should.be.equal('2 Present description bla bla bla');
+          p2.ammount.should.be.equal(3);
+          p2.price.should.be.equal(65);
+
+        })
+        .then(done)
+        .catch(done)
   });
   
   it('descargar un documento con la información de los regalos que me hicieron', function (done) {

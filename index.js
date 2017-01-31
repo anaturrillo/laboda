@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 
 initializeDB(connection)
     .then(function (row) {
-      //hacer cosas
       app.use('/api/presents', presents(connection));
 
     })
