@@ -10,8 +10,14 @@ module.exports = function (connection) {
   const router = express.Router();
   const vt = validateToken(connection);
 
-  router.get('/list', function (req, res) {
-      getPresents(connection).then(list => res.json(list))
+  router.get('/presents/list', function (req, res) {
+      getPresents(connection)
+          .then(list => {
+            res.status(200);
+            res.json(list);
+            connection.end()
+          })
+          .catch(console.error)
   });
 
   /*router.post('/create', function (req, res) {
@@ -20,14 +26,14 @@ module.exports = function (connection) {
 
   });*/
 
-  router.post('/create', vt, createPresent);
+  router.post('/present', vt, createPresent);
 
-  router.post('/edit', function (req, res) {
+  router.put('/present', function (req, res) {
     editPresent(connection)
         .then(present => res.json(present))
   });
   
-  router.post('/remove', function (req, res) {
+  router.post('/present/remove', function (req, res) {
     removePresent(connection)
         .then(present => res.json(present))
   });

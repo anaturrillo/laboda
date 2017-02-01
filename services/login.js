@@ -1,18 +1,19 @@
-const queryPromise = require('../lib/queryPromise');
+const express = require('express');
+const toLogin = require('./controllers/login');
 
-module.exports = function (connection, user) {
-  const qp = queryPromise(connection);
-  return qp('SELECT * from brideAndGroom WHERE name=?', user.name)
-      .then(function (row) {
-        if (row.length && row[0].password == user.password) {
-          return {
-            status: "logged_in",
-            token: Math.random().toString(36).substr(2, 5)
-          }
-        } else {
-          return {
-            status: "not_authorized"
-          }
-        }
-      })
+module.exports = function (connection) {
+  const router = express.Router();
+
+  router.post('/login', function (req, res) {
+    const user = req.body;
+    const login = toLogin(connection);
+
+    return login(user)
+        .then(function (r) {
+          res.status(r.status);
+          res.json(r.body);
+        })
+  });
+
+  return router
 };

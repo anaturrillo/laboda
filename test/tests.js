@@ -14,78 +14,8 @@ const removePresent =   require('../services/controllers/removePresent');
 const getPresents   =   require('../services/controllers/getPresents');
 const buyPresent    =   require('../services/controllers/buyPresent');
 const getGifts      =   require('../services/controllers/getGifts');
-const login         =   require('../services/login');
+const login         =   require('../services/controllers/login')(connection);
 const registerGift  =   require('../services/controllers/registerGift');
-
-describe('Como invitado quiero', function () {
-
-  beforeEach(function (done) {
-
-    connection.query('DROP TABLE IF EXISTS availablePresents',  function (err, result) {
-      if(err){
-        console.error(err);
-        done(err)
-      }else{
-        initializeDB(connection)
-            .then(function () {
-              done()
-            })
-            .catch(done)
-      }
-    });
-  });
-
-  it('ver los regalos cargados', function (done) {
-
-    getPresents(connection)
-        .then(function (presentList) {
-          presentList.should.be.instanceof(Array);
-          presentList.length.should.be.equal(0);
-        })
-        .then(done)
-        .catch(function (e) {
-          done(e)
-        })
-  });
-  
-  it('comprar un regalo', function (done) {
-    done('falta hacer')
-  });
-  
-  it('editar mi dedicatoria', function (done) {
-    done('falta hacer')
-
-  });
-  
-  it('conocer el estado de mi regalo', function (done) {
-    done('falta hacer')
-  });
-
-  
-});
-
-describe('Como sistema quiero', function () {
-  beforeEach(function (done) {
-
-    connection.query('DROP TABLE IF EXISTS brideAndGroom',  function (err, result) {
-      if(err){
-        console.error(err);
-        done(err)
-      }else{
-        initializeDB(connection)
-            .then(function () {
-              done()
-            })
-            .catch(done)
-      }
-    });
-  });
-  
-  it('registrar un regalo comprado con éxito por un invitado', function (done) {
-    done('falta hacer')
-
-  })
-});
 
 describe('Como uno de los novios quiero', function () {
 
@@ -106,16 +36,23 @@ describe('Como uno de los novios quiero', function () {
   });
 
   it('loggearme con mi usuario y password, soy la novia', function (done) {
-    const post = {
+    const post ={
       "name": "flor",
       "password": "16ece45ed0201c414ef8efd66af2dc51354cd964"
     };
 
-    login(connection, post)
-        .then(function (response) {
-          response.status.should.be.equal("logged_in");
-          response.token.length.should.be.equal(5);
-          response.token.should.be.type("string");
+    login(post)
+        .then( response => Promise.all([qp('SELECT token FROM brideAndGroom WHERE name="flor"'), response]))
+        .then(function (promises) {
+          const response = promises[1];
+          const row = promises[0];
+
+          response.body.status.should.be.equal("logged_in");
+          response.body.token.length.should.be.equal(5);
+          response.body.token.should.be.type('string');
+          response.status.should.be.equal(200);
+          row[0].token.should.be.equal(response.body.token);
+
           done()
         })
         .catch(function (e) {
@@ -130,10 +67,17 @@ describe('Como uno de los novios quiero', function () {
     };
 
     login(connection, post)
-        .then(function (response) {
-          response.status.should.be.equal("logged_in");
-          response.token.length.should.be.equal(5);
-          response.token.should.be.type("string");
+        .then( response => Promise.all([qp('SELECT token FROM brideAndGroom WHERE name="lenny"'), response]))
+        .then(function (promises) {
+          const response = promises[1];
+          const row = promises[0];
+
+          response.body.status.should.be.equal("logged_in");
+          response.body.token.length.should.be.equal(5);
+          response.body.token.should.be.type("string");
+          response.status.should.be(200);
+          row[0].token.should.be.equal(response.body.token);
+
           done()
         })
         .catch(function (e) {
@@ -148,8 +92,12 @@ describe('Como uno de los novios quiero', function () {
     };
 
     login(connection, post)
-        .then(function (response) {
-          response.status.should.be.equal("not_authorized");
+        .then( response => Promise.all([qp('SELECT token FROM brideAndGroom WHERE name="lenny"'), response]))
+        .then(function (promises) {
+          const response = promises[1];
+          const row = promises[0];
+
+          response.body.status.should.be.equal("not_authorized");
           done()
         })
         .catch(function (e) {
@@ -159,8 +107,10 @@ describe('Como uno de los novios quiero', function () {
 
   it('loggearme con mi usuario y password, no se el usuario!', function (done) {
     const post = {
-      "name": "Florencia",
-      "password": "pepe"
+      body: {
+        "name": "Florencia",
+        "password": "pepe"
+      }
     };
 
     login(connection, post)
@@ -177,14 +127,14 @@ describe('Como uno de los novios quiero', function () {
     const present1 = {
       "name": "Present name",
       "description": "Present description bla bla bla",
-      "price": 50,
+      "price": 1,
       "ammount": 2
     };
 
     const present2 = {
       "name": "2 Present name",
       "description": "2 Present description bla bla bla",
-      "price": 65,
+      "price": 2,
       "ammount": 3
     };
 
@@ -201,7 +151,8 @@ describe('Como uno de los novios quiero', function () {
           p1.name.should.be.equal('Present name');
           p1.description.should.be.equal('Present description bla bla bla');
           p1.ammount.should.be.equal(2);
-          p1.price.should.be.equal(50);
+          p1.price.should.be.equal(1);
+          p1.url.should.be.type('string');
 
           p2.status.should.be.equal('available');
           p2.id.should.be.equal(2);
@@ -209,7 +160,8 @@ describe('Como uno de los novios quiero', function () {
           p2.name.should.be.equal('2 Present name');
           p2.description.should.be.equal('2 Present description bla bla bla');
           p2.ammount.should.be.equal(3);
-          p2.price.should.be.equal(65);
+          p2.price.should.be.equal(2);
+          p2.url.should.be.type('string');
         })
         .then(_ => done())
         .catch(function (e) {
@@ -309,7 +261,13 @@ describe('Como uno de los novios quiero', function () {
     };
 
     const boughtPresent = {
-      id: 1
+      present: {
+        id: 1
+      },
+      gest: {
+        name: "Pepe Pomodoro",
+        message: "Para la pareja feliz!"
+      }
     };
 
     createPresent(connection, present1)

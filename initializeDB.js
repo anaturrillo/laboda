@@ -9,7 +9,6 @@ module.exports = function (connection) {
       'price INT, ' +
       'ammount INT, ' +
       'status VARCHAR(30), ' +
-      'date datetime DEFAULT CURRENT_TIMESTAMP, ' +
       'PRIMARY KEY (id))';
 
   const giftsReceived = 'CREATE TABLE IF NOT EXISTS giftsReceived (' +

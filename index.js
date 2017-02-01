@@ -2,10 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
-const presents = require('./services/presents.js');
-const initializeDB = require('./initializeDB.js');
+const presents = require('./services/presents');
+const login = require('./services/login');
+const initializeDB = require('./initializeDB');
 
-const config = require('./config.js');
+const config = require('./config');
 const port = config.port;
 const app = express();
 
@@ -15,10 +16,9 @@ app.use(bodyParser.json());
 
 initializeDB(connection)
     .then(function (row) {
-      app.use('/api/presents', presents(connection));
-
+      app.use('/api', presents(connection));
+      app.use('/api', login(connection))
     })
-    .then(_ => connection.end())
     .catch(function (e) {
       console.error(e)
     });
