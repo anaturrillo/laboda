@@ -18,7 +18,7 @@ module.exports = function (connection) {
   router.get('/regalos-disponibles', function (req, res) {
     vt(getAllPresents)
         .get(req)
-        .then(function (result) {
+        .then(result => {
           if (result.status == 200){
             const presents = result.json;
             const presentsKeys = Object.keys(presents[0]);
@@ -32,11 +32,18 @@ module.exports = function (connection) {
         .catch(console.error)
   });
 
-  router.get('/presents/lista', function (req, res) {
+  router.get('/lista', function (req, res) {
     getAvailablePresents(connection)
-        .then(list => {
-          res.status(200);
-          res.json(list);
+        .then(result => {
+          if (result.status == 'ok') {
+            result.response.then(presents => {
+              res.render('presentsList', {presents});
+            });
+
+          } else {
+            res.json(result.response)
+          }
+
         })
         .catch(console.error)
   });

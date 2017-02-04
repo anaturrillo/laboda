@@ -1,10 +1,13 @@
 html
     head
         title casorio!
+        link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
-        script(src="/css/bootstrap/bootstrap.min.js")
-        link(href='/css/bootstrap/bootstrap.min.css', rel='stylesheet', type='text/css')
+        script(src="/css/materialize/css/materialize.min.js")
+        link(href='/css/materialize/css/materialize.min.css', rel='stylesheet', type='text/css')
         link(href='/css/main.css', rel='stylesheet', type='text/css')
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
     body
         #container.container
             #menu
@@ -27,8 +30,8 @@ html
             #content
                 block content
             block footer
-                footer
-                    span La boda de Flor y Lenny
+                footer.valign-wrapper.center-align
+                    p.valign La boda de Flor y Lenny
 
             block scripts
                 script(src="/js/script.js")

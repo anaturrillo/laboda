@@ -3,17 +3,17 @@ extends layout
 
 block content
     div.row
-        div.col-sm-12
+        div.col-sm-1.col-md-4
+        div.col-sm-10.col-md-4
             if presents
                 table.table.table-hover
                     each present, i in presents
                         tr
                             each key, i in presentsKeys
                                 td #{present[key]}
-                            td
-                                i.material-icons &#xE87C;
             else
                 p esperando regalos
+        div.col-sm-1.col-md-4
 
 block scripts
     script(src="/js/presentsList.js")
