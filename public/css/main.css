@@ -1,0 +1,27 @@
+#container {
+    padding-top: 30px;
+}
+
+input {
+    margin-bottom: 20px;
+}
+
+.light-bg {
+    background: #e3f2fd;
+    color: rgba(0,0,0,0.87)
+}
+
+.contrast-bg {
+    background: #ffb300;
+    color: rgba(255, 255, 255, 0.901961)
+}
+
+.contrast-border {
+    border: 1px solid #ffb300;
+    background-color: transparent;
+}
+
+.light-border {
+    border: 1px solid #e3f2fd;
+    background-color: transparent;
+}

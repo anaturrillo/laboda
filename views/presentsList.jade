@@ -1,0 +1,19 @@
+// presentsList.jade
+extends layout
+
+block content
+    div.row
+        div.col-sm-1.col-md-4
+        div.col-sm-8.col-md-4
+            if presents
+                table.table.table-hover
+                    each present, i in presents
+                        tr
+                            each key, i in presentsKeys
+                                td #{present[key]}
+            else
+                p esperando regalos
+        div.col-sm-1.col-md-4
+
+block scripts
+    script(src="/js/presentsList.js")

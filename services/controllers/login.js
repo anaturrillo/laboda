@@ -1,9 +1,11 @@
 const queryPromise = require('../../lib/queryPromise');
+require('../../lib/SHA256');
 
 module.exports = connection => function (user) {
   const qp = queryPromise(connection);
+  const shaedPwd = SHA256(user.password);
 
-  return qp('SELECT * from brideAndGroom WHERE name=? AND password=?', [user.name, user.password])
+  return qp('SELECT * from brideAndGroom WHERE name=? AND password=?', [user.name, shaedPwd])
       .then(function (row) {
         if (row.length) {
 

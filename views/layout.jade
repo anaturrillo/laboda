@@ -1,0 +1,34 @@
+html
+    head
+        title casorio!
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+        script(src="/css/bootstrap/bootstrap.min.js")
+        link(href='/css/bootstrap/bootstrap.min.css', rel='stylesheet', type='text/css')
+        link(href='/css/main.css', rel='stylesheet', type='text/css')
+    body
+        #container.container
+            #menu
+                block menu
+                    nav.navbar.navbar-default
+                        div.container-fluid
+                            div.navbar-header
+                                button(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar").navbar-toggle.collapsed
+                                    span.sr-only Toggle navigation
+                                    span.icon-bar
+                                    span.icon-bar
+                                    span.icon-bar
+                                a(href="#").navbar-brand Nuestro casorio <3
+                            div#navbar.navbar-collapse.collapse
+                                ul.nav.navbar-nav
+                                    li.active
+                                        a(href="/regalos-disponibles") Ver lista de regalos
+                                    li
+                                        a(href="/nuestros-regalos") Ver mensajes
+            #content
+                block content
+            block footer
+                footer
+                    span La boda de Flor y Lenny
+
+            block scripts
+                script(src="/js/script.js")

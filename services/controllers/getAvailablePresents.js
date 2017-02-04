@@ -7,7 +7,7 @@ module.exports = function (connection) {
 
   const qp = queryPromise(connection);
 
-  return qp('SELECT * FROM availablePresents')
+  return qp('SELECT * FROM presents WHERE status="disponible"')
       .then(function (presents) {
         return Promise.all(presents.map(function (present) {
           const preference = {
@@ -19,7 +19,11 @@ module.exports = function (connection) {
                 "unit_price": present.price,
                 "description": present.description
               }
-            ]
+            ],
+            "back_urls": {
+              "success": "http://localhost:3000/success",
+              "failure":""
+            }
           };
 
           return mp.createPreference(preference)

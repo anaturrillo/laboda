@@ -11,7 +11,7 @@ const qp = queryPromise(connection);
 const createPresent =   require('../services/controllers/createPresent');
 const editPresent   =   require('../services/controllers/editPresent');
 const removePresent =   require('../services/controllers/removePresent');
-const getPresents   =   require('../services/controllers/getPresents');
+const getPresents   =   require('../services/controllers/getAvailablePresents');
 const buyPresent    =   require('../services/controllers/buyPresent');
 const getGifts      =   require('../services/controllers/getGifts');
 const login         =   require('../services/controllers/login')(connection);
@@ -88,7 +88,7 @@ describe('Como uno de los novios quiero', function () {
   it('loggearme con mi usuario y password, no se la contraseña!', function (done) {
     const post = {
       "name": "Pepe",
-      "password": "h00n3yM00n"
+      "password": "h0n3ym00n"
     };
 
     login(connection, post)
@@ -175,7 +175,7 @@ describe('Como uno de los novios quiero', function () {
     const present1 = {
       "name": "Present name",
       "description": "Present description bla bla bla",
-      "price": 50,
+      "price": 1,
       "ammount": 2
     };
 
