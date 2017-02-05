@@ -2,28 +2,33 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
-const sayHullo = require('./services/sayHullo.js');
-const initializeDB = require('./initializeDB.js');
+const routes = require('./routes');
+const presents = require('./routes/presents');
+const login = require('./routes/login');
+const initializeDB = require('./initializeDB');
 
-const config = require('./config.js');
+const config = require('./config');
 const port = config.port;
 const app = express();
 
 const connection = mysql.createConnection(config.db_connect);
 
+connection.connect();
+
 app.use(bodyParser.json());
-app.use('/api', sayHullo());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'jade');
+app.use(express.static('public'));
 
 initializeDB(connection)
     .then(function (row) {
-      //hacer cosas
-
+      app.use('/regalos', presents(connection));
+      app.use('/login', login(connection));
+      app.use('/', routes(connection));
     })
-    .then(_ => connection.end())
     .catch(function (e) {
       console.error(e)
     });
-
 app.listen(port, function () {
   console.log('listening on port ' + port)
 });

@@ -1,0 +1,31 @@
+html
+    head
+        title casorio!
+        link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+        script(src="/js/materialize.js")
+        link(href='/css/materialize/css/materialize.min.css', rel='stylesheet', type='text/css')
+        link(href='/css/main.css', rel='stylesheet', type='text/css')
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    body
+        div(class="#{className}"  )#container.container
+            #menu
+                block menu
+
+            #content
+                block content
+            block toolbar
+                div.fixed-action-btn.click-to-toggle
+                    a.btn-floating.btn-large.orange
+                        i.material-icons menu
+                    ul
+                        li
+                            a(href='#uploadNewPresent').btn-floating.red.accent-3.modal-trigger
+                                i.material-icons cloud_upload
+            block footer
+                footer.valign-wrapper.center-align.indigo.lighten-3
+                    p.valign La boda de Flor y Lenny
+
+            block scripts
+                script(src="/js/script.js")
