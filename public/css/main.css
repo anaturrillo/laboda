@@ -51,8 +51,12 @@ footer p {
 .in-container {
     height: 100%
 }
-
-
+.index .row{
+    margin: 0;
+}
+.index #content {
+    margin: 0;
+}
 /* HELPERS */
 a.btn {
     margin-right: 10px;

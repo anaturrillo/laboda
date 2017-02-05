@@ -17,7 +17,7 @@ module.exports = connection => {
   return {
     validate: function (req, res, next) {
       const qp = queryPromise(connection);
-      const cookies = cookie2Object(req.headers.cookie);
+      const cookies = cookie2Object(req.headers.cookie || '');
 
       return qp('SELECT * from brideAndGroom WHERE token=?', cookies.token)
           .then(function(result){
