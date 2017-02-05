@@ -1,8 +1,9 @@
-const queryPromise = require('../../lib/queryPromise');
-require('../../lib/SHA256');
+const queryPromise = require('../lib/queryPromise');
+require('../lib/SHA256');
 
 module.exports = connection => function (user) {
   const qp = queryPromise(connection);
+  console.log(user.password)
   const shaedPwd = SHA256(user.password);
 
   return qp('SELECT * from brideAndGroom WHERE name=? AND password=?', [user.name, shaedPwd])
