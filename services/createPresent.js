@@ -1,4 +1,4 @@
-const queryPromise = require('../../lib/queryPromise');
+const queryPromise = require('../lib/queryPromise');
 
 module.exports = function (connection, req) {
   const present = req.body;

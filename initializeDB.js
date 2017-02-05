@@ -10,7 +10,8 @@ module.exports = function (connection) {
       'price INT, ' +
       'status VARCHAR(30), ' +
       'fromName VARCHAR(255), ' +
-      'message TEXT,' +
+      'message TEXT, ' +
+      'url TEXT,' +
       'PRIMARY KEY (id))';
 
   const brideAndGroom = 'CREATE TABLE IF NOT EXISTS brideAndGroom (' +

@@ -1,6 +1,6 @@
-const queryPromise = require('../../lib/queryPromise');
+const queryPromise = require('../lib/queryPromise');
 const MP = require ("mercadopago");
-const c = require("../../config");
+const c = require("../config");
 
 module.exports = function (connection, modification) {
   const qp = queryPromise(connection);

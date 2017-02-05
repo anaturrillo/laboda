@@ -3,8 +3,9 @@ extends layout
 
 block content
     div.row
-        div.col-sm-12
-            h1.red-text.text-accent-3 Administrá tus regalos
+        div.col.s12
+            h2.header.red-text.text-accent-3 Administrá tus regalos
+            a(close-session="", href="") cerrar sesion
             if presents
                 table.highlight.bordered
                     thead
@@ -14,15 +15,21 @@ block content
                     each present, i in presents
                         tr
                             each key, i in presentsKeys
-                                td #{present[key]}
+                                case key
+                                    when "image"
+                                        td
+                                            img(src="/images/#{present[key]}").responsive-img
+                                    default
+                                        td #{present[key]}
                             td
-                                i.material-icons &#xE87C;
+                                a(href="", data-id="#{present.id}")#removeItem
+                                    i.material-icons.red-text delete
             else
                 p.orange-text No hay regalos cargados!
     div#uploadNewPresent.modal
         div.modal-content
             h4.indigo-text.text-lighten-4 Agregá un nuevo regalo
-            form(method="POST", enctype="multipart/form-data", action="/api/present")
+            form(method="POST", enctype="multipart/form-data", action="/regalos")
                 div.row
                     div.input-field.col.s6
                         input(name="name", type="text")#name.validate

@@ -3,17 +3,31 @@ extends layout
 
 block content
     div.row
-        div.col-sm-1.col-md-4
-        div.col-sm-10.col-md-4
+        div.col.s12
+            h1.header.red-text.text-accent-3 ¡Hacele un regalo a la pareja feliz!
+    div.row
+        div.col.s12
             if presents
-                table.table.table-hover
-                    each present, i in presents
-                        tr
-                            each key, i in presentsKeys
-                                td #{present[key]}
+                each present in presents
+                    div.col.s1.m6
+                        div.card.medium
+                            div.card-image.waves-effect.waves-block.waves-light
+                                img(src="/images/#{present.image}").activator
+                            div.card-content
+                                span.card-title.activator.grey-text.text-darken-4 #{present.name} - $#{present.price}
+                                    i.material-icons.right more_vert
+                                p
+                                    a(href="#{present.url}") REGALAR!
+                            div.card-reveal
+                                span.card-title.grey-text.text-darken-4 #{present.name} - $#{present.price}
+                                    i.material-icons.right close
+                                p #{present.description}
+                                p
+                                    a(href="#{present.url}").btn
+                                        i.material-icons shopping_cart
             else
-                p esperando regalos
-        div.col-sm-1.col-md-4
+                p.orange-text No hay regalos cargados!
+block toolbar
 
 block scripts
     script(src="/js/presentsList.js")

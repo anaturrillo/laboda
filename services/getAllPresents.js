@@ -1,10 +1,10 @@
-const queryPromise = require('../../lib/queryPromise');
+const queryPromise = require('../lib/queryPromise');
 
 module.exports = function (connection) {
 
   const qp = queryPromise(connection);
 
-  return qp('SELECT * FROM presents')
+  return qp('SELECT id,	name,	description,	image,	price,	status,	fromName,	message FROM presents')
       .then(function (presents) {
         if (presents.length >= 1) {
           return {

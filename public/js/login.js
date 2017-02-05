@@ -9,7 +9,7 @@ $(document).ready(function () {
         obj[splitted[0]] = splitted[1];
         return obj }, {} );
 
-  if (cookie.token) window.location = '/lista';
+  if (cookie.token) window.location = '/regalos/lista';
 
   $('#login').submit(function (evt) {
     event.preventDefault();
@@ -26,7 +26,7 @@ $(document).ready(function () {
     $.post('/api/login', formData)
           .done(function (resp) {
             document.cookie= "token=" + resp.token;
-            window.location = '/lista'
+            window.location = '/regalos/lista'
           })
           .fail(function (err) {
             alert('No autorizado');

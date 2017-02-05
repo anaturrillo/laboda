@@ -1,10 +1,10 @@
 const express = require('express');
-const toLogin = require('./controllers/login');
+const toLogin = require('./../services/controllers/login');
 
 module.exports = function (connection) {
   const router = express.Router();
 
-  router.post('/login', function (req, res) {
+  router.post('/', function (req, res) {
     const user = req.body;
     const login = toLogin(connection);
 
