@@ -23,12 +23,13 @@
     font-feature-settings: 'liga';
 }
 
+/* GENERAL LAYOUT */
 #content {
 
 }
 
 footer {
-    position: absolute;
+    position: fixed;
     bottom:0;
     left: 0;
     width: 100%;
@@ -42,34 +43,21 @@ footer p {
     width: 100%;
 }
 
-a.btn {
-    margin-right: 10px;
+/* INDEX */
+.in-container {
+    height: 100%
 }
 
-#container {
-    padding-top: 30px;
+
+/* HELPERS */
+a.btn {
+    margin-right: 10px;
 }
 
 input {
     margin-bottom: 20px;
 }
 
-.light-bg {
-    background: #e3f2fd;
-    color: rgba(0,0,0,0.87)
-}
-
-.contrast-bg {
-    background: #ffb300;
-    color: rgba(255, 255, 255, 0.901961)
-}
-
-.contrast-border {
-    border: 1px solid #ffb300;
-    background-color: transparent;
-}
-
-.light-border {
-    border: 1px solid #e3f2fd;
-    background-color: transparent;
+input[type="submit"]{
+    line-height: 35px;
 }

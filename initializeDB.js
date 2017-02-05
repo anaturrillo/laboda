@@ -6,6 +6,7 @@ module.exports = function (connection) {
       'id INT AUTO_INCREMENT UNIQUE NOT NULL, ' +
       'name VARCHAR(255), ' +
       'description TEXT, ' +
+      'image VARCHAR(255), ' +
       'price INT, ' +
       'status VARCHAR(30), ' +
       'fromName VARCHAR(255), ' +

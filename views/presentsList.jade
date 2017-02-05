@@ -4,8 +4,13 @@ extends layout
 block content
     div.row
         div.col-sm-12
+            h1.red-text.text-accent-3 Administrá tus regalos
             if presents
-                table.table.table-hover
+                table.highlight.bordered
+                    thead
+                        tr
+                            each key, i in presentsKeys
+                                th #{key}
                     each present, i in presents
                         tr
                             each key, i in presentsKeys
@@ -13,7 +18,33 @@ block content
                             td
                                 i.material-icons &#xE87C;
             else
-                p esperando regalos
+                p.orange-text No hay regalos cargados!
+    div#uploadNewPresent.modal
+        div.modal-content
+            h4.indigo-text.text-lighten-4 Agregá un nuevo regalo
+            form(method="POST", enctype="multipart/form-data", action="/api/present")
+                div.row
+                    div.input-field.col.s6
+                        input(name="name", type="text")#name.validate
+                        label(for="name") Nombre
+                    div.input-field.col.s6
+                        input(name="price", type="number", pattern="[0-9]+")#price.validate
+                        label(for="price") Precio
+                div.row
+                    div.input-field.col.s12
+                        textarea(data-length="400", name="description")#description.materialize-textarea
+                        label(for="description") Descripción
+                div.row
+                    div.input-field.col.s12.file-field
+                        div.btn
+                            span Imagen
+                            input(type="file", name="image")
+                        div.file-path-wrapper
+                            input(type="text").file-path.validate
+                div.row
+                    input(style="line-height: 34px;", uploadPresent='', type="submit", value="Agregar regalo").right.modal-action.modal-close.waves-effect.waves-yellow.btn-flat.orange.white-text
+                    a(href="#!").right.modal-action.modal-close.waves-effect.waves-amber.btn-flat.indigo-text.text-lighten-4 Cancelar
+
 
 block scripts
     script(src="/js/presentsList.js")

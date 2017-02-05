@@ -1,5 +1,5 @@
 const express = require('express');
-const validateToken = require('../services/validateToken');
+const validateToken = require('../services/controllers/validateToken');
 const getAvailablePresents =  require('../services/controllers/getAvailablePresents.js');
 const getAllPresents = require('../services/controllers/getAllPresents');
 
@@ -8,40 +8,40 @@ module.exports = function (connection) {
   const vt = validateToken(connection);
 
   router.get('', function (req, res) {
-    res.render('index');
+    res.render('index', {className: 'index'});
   });
 
   router.get('/novios', function (req, res) {
-    res.render('login');
+    res.render('login', {className: 'login-novios'});
   });
 
-  router.get('/regalos-disponibles', function (req, res) {
+  router.get('/lista', function (req, res) {
     vt(getAllPresents)
         .get(req)
         .then(result => {
-          if (result.status == 200){
+          if (result.status == 'ok'){
             const presents = result.json;
             const presentsKeys = Object.keys(presents[0]);
-            res.render('presentsList', {presents, presentsKeys});
+            res.render('presentsList', {presents, presentsKeys, className: 'present-list'});
 
           } else {
-            res.status(result.status);
-            res.json(result.json)
+            res.render('presentsList', {className: 'present-list'});
           }
         })
         .catch(console.error)
   });
 
-  router.get('/lista', function (req, res) {
+  router.get('/regalos-disponibles', function (req, res) {
     getAvailablePresents(connection)
         .then(result => {
           if (result.status == 'ok') {
             result.response.then(presents => {
-              res.render('presentsList', {presents});
+              const presentsKeys = Object.keys(presents[0]);
+              res.render('presentsList', {presents, presentsKeys, className: 'present-list'});
             });
 
           } else {
-            res.json(result.response)
+            res.render('presentsList', {className: 'present-list'});
           }
 
         })

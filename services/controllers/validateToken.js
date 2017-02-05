@@ -1,4 +1,4 @@
-const queryPromise = require('./../lib/queryPromise');
+const queryPromise = require('./../../lib/queryPromise');
 
 module.exports = connection => function (next) {
   return {
@@ -38,7 +38,7 @@ module.exports = connection => function (next) {
           .then(function (result) {
 
             if(result.length == 1){
-              return next(connection)
+              return next(connection, req)
                   .then(function (response) {
                     return {
                       status: 200,
