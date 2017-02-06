@@ -17,13 +17,13 @@ block content
                                 span.card-title.activator.grey-text.text-darken-4 #{present.name} - $#{present.price}
                                     i.material-icons.right more_vert
                                 p
-                                    a(href="#{present.url}") REGALAR!
+                                    a(href="#{present.url}", target="_blank") REGALAR!
                             div.card-reveal
                                 span.card-title.grey-text.text-darken-4 #{present.name} - $#{present.price}
                                     i.material-icons.right close
                                 p #{present.description}
                                 p
-                                    a(href="#{present.url}").btn
+                                    a(href="#{present.url}", target="_blank").btn
                                         i.material-icons shopping_cart
             else
                 p.orange-text No hay regalos cargados!

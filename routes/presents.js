@@ -1,6 +1,7 @@
 const express = require('express');
 const validateToken = require('./../services/validateToken');
 const multer = require('multer');
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, __dirname + '/../public/images/')
@@ -55,7 +56,7 @@ module.exports = function (connection) {
         })
         .catch(function(err){
           console.error("GET /lista", err);
-          res.render('error500', {className: 'present-list', error: err});
+          res.render('error', {className: 'present-list', error: err});
         });
 
   });
@@ -72,8 +73,8 @@ module.exports = function (connection) {
           res.render('availablePresents', {className: 'available-presents', presents});
         })
         .catch(function(err){
-          console.error("GET /lista", err);
-          res.render('error500', {className: 'present-list', error: err});
+          console.error("GET /diponibles", err);
+          res.render('error', {className: 'present-list', error: err});
         });
   });
 
