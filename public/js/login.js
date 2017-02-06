@@ -23,7 +23,7 @@ $(document).ready(function () {
           }, {});
 
 
-    $.post('/api/login', formData)
+    $.post('/login', formData)
           .done(function (resp) {
             document.cookie= "token=" + resp.token;
             window.location = '/regalos/lista'

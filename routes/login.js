@@ -1,5 +1,5 @@
 const express = require('express');
-const toLogin = require('./../services/controllers/login');
+const toLogin = require('./../services/login');
 
 module.exports = function (connection) {
   const router = express.Router();
