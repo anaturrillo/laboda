@@ -1,11 +1,13 @@
 
 $(document).ready(function () {
-
+  $('#preloader').removeClass('hide');
   $.ajax({
     url: '/regalos/disponibles',
     type: 'GET'
   })
   .done(function (data) {
+    $('#preloader').addClass('hide');
+
     if (data.length == 0) {
       $('#present-content').html('<p>No hay regalos disponibles</p>');
     } else {
@@ -13,7 +15,7 @@ $(document).ready(function () {
       const content = data
           .map(function (item, index) {
             let template = '';
-            if(index%3 == 0) template += '<div class="row">';
+            if((index+1)%3 == 0) template += '<div class="row">';
 
             template += $('#present-card')
                 .html()
@@ -23,7 +25,7 @@ $(document).ready(function () {
                 .replace(/:url/g, item.url)
                 .replace(/:price/g, item.price);
 
-            if(index%3 == 0) template += '</div>';
+            if((index+1)%3 == 0) template += '</div>';
 
             $('#present-content').append(template);
           });

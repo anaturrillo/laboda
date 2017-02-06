@@ -9,12 +9,22 @@ html
         link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
     body
-        div(class="#{className}"  )#container.container
+        div#container.container
             #menu
                 block menu
 
-            #content
-                block content
+            block content
+
+            block preloader
+                div#preloader.preloader-wrapper.big.active.hide
+                    div.spinner-layer.spinner-blue-only
+                        div.circle-clipper.left
+                            div.circle
+                        div.gap-patch
+                            div.circle
+                        div.circle-clipper.right
+                            div.circle
+
             block toolbar
                 div.fixed-action-btn.click-to-toggle
                     a.btn-floating.btn-large.orange

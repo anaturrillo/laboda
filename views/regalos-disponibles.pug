@@ -1,28 +1,29 @@
 extends layout
 
 block content
-    div.row
-        div.col.s12
-            h1.header.red-text.text-accent-3 ¡Hacele un regalo a la pareja feliz!
-    div.row
-        div#present-content.col.s12
-    div#present-card.hide
-        div.col.s1.m4
-            div.card.medium
-                div.card-image.waves-effect.waves-block.waves-light
-                    img(src="/images/:image").activator
-                div.card-content
-                    span.card-title.activator.grey-text.text-darken-4 :name - $:price
-                        i.material-icons.right more_vert
-                    p
-                        a(href=":url", target="_blank") REGALAR!
-                div.card-reveal
-                    span.card-title.grey-text.text-darken-4 :name - $:price
-                        i.material-icons.right close
-                    p :description
-                    p
-                        a(href=":url", target="_blank").btn
-                            i.material-icons shopping_cart
+    #content.regalos-disponibles
+        div.row
+            div.col.s12
+                h1.header.red-text.text-accent-3 ¡Hacele un regalo a la pareja feliz!
+        div.row
+            div#present-content.col.s12
+        div#present-card.hide
+            div.col.s1.m4
+                div.card.medium
+                    div.card-image.waves-effect.waves-block.waves-light
+                        img(src="/images/:image").activator
+                    div.card-content
+                        span.card-title.activator.grey-text.text-darken-4 :name - $:price
+                            i.material-icons.right more_vert
+                        p
+                            a(href=":url", target="_blank") REGALAR!
+                    div.card-reveal
+                        span.card-title.grey-text.text-darken-4 :name - $:price
+                            i.material-icons.right close
+                        p :description
+                        p
+                            a(href=":url", target="_blank").btn
+                                i.material-icons shopping_cart
 
 
 block toolbar
