@@ -65,11 +65,6 @@ module.exports = function (connection) {
 
   router.get('/disponibles', function (req, res) {
     getAvailablePresents(connection)
-        .then(result => {
-          if (result.status == 'ok') {
-            return result.response
-          }
-        })
         .then(function(presents){
           res.json(presents);
         })

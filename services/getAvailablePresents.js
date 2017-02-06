@@ -9,8 +9,7 @@ module.exports = function (connection) {
 
   return qp('SELECT id, name, description, image, price, url FROM presents WHERE status="disponible"')
       .then(function (presents) {
-        if (presents.length >= 1) {
-          const mpPresents = Promise.all(presents.map(function (present) {
+          return Promise.all(presents.map(function (present) {
             const preference = {
               "items": [
                 {
@@ -38,18 +37,7 @@ module.exports = function (connection) {
                   console.error(err)
                 })
           }));
-
-          return {
-            status: 'ok',
-            response: mpPresents
-          }
-        }
-        return notOk;
+      }).catch(function (e) {
+        console.error('fallo getAvailablePresents', e)
       })
-
-};
-
-const notOk = {
-  status: 'not_ok',
-  response: 'no hay regalos disponibles'
 };
