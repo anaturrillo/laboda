@@ -4,6 +4,7 @@ module.exports = function (connection) {
 
   const availablePresents = 'CREATE TABLE IF NOT EXISTS presents (' +
       'id INT AUTO_INCREMENT UNIQUE NOT NULL, ' +
+      'category VARCHAR(100), ' +
       'name VARCHAR(255), ' +
       'description TEXT, ' +
       'image VARCHAR(255), ' +

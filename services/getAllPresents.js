@@ -4,7 +4,7 @@ module.exports = function (connection) {
 
   const qp = queryPromise(connection);
 
-  return qp('SELECT id,	name,	description, image, price, status FROM presents')
+  return qp('SELECT id, category,	name,	description, image, price, status FROM presents')
       .then(function (presents) {
         if (presents.length >= 1) {
           return {

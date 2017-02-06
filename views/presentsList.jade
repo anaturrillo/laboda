@@ -40,6 +40,10 @@ block content
                         label(for="price") Precio
                 div.row
                     div.input-field.col.s12
+                        input(name="category", type="text", required="")#category.validate
+                        label(for="category") Categoría
+                div.row
+                    div.input-field.col.s12
                         textarea(data-length="400", name="description", required="")#description.materialize-textarea
                         label(for="description") Descripción
                 div.row
