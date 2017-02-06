@@ -42,11 +42,10 @@ $(document).ready(function () {
       data: {id: removeId}
     })
     .done(function () {
-      //AGREGAR EL REGALO NUEVO?
       location = "/lista.html";
     })
     .fail(function () {
-      location= "/error"
+      location= "/error.html"
     })
   });
 

@@ -25,18 +25,18 @@ module.exports = function (connection) {
 
   router.post('/', vt.validate, uploadImage.single('image'), function (req, res) {
     createPresent(connection, req)
-        .then( _ => res.redirect("/regalos/lista"))
+        .then( _ => res.redirect('/lista.html'))
         .catch(function(err){
           console.error("POST /regalos", err);
-          res.render('error', {className: 'present-list', error: err});
+          res.json({error: err});
         });
   });
 
   router.delete('/', vt.validate, function (req, res) {
     removePresents(connection, req)
         .then(_ =>  res.json({status: "ok"}))
-        .catch(function (e) {
-          console.error("Error in DELETE /present", e);
+        .catch(function (err) {
+          console.error("Error in DELETE /present", err);
           res.status(500);
           res.json({status: "error"})
         })
