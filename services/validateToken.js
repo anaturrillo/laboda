@@ -42,13 +42,14 @@ module.exports = connection => {
             if (result.length == 0) {
               next()
             } else {
-              res.redirect('/regalos/lista')
+              res.redirect('/lista.html')
             }
 
           })
           .catch(function(e){
             console.error("validateToken.validate: forbidden", cookies.token);
-            res.render('error')
+            res.status(500);
+            res.json({'error': e})
           });
     }
   }

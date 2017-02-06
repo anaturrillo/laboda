@@ -30,7 +30,7 @@ $(document).ready(function () {
     }
   })
   .fail(function (err) {
-    window.location('/error');
+    window.location = '/error.html';
     console.log('fallo get /regalos/lista')
   });
 

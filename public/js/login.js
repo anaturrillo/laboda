@@ -16,7 +16,7 @@ $(document).ready(function () {
     $.post('/login', formData)
           .done(function (resp) {
             document.cookie= "token=" + resp.token;
-            window.location = '/regalos/lista'
+            window.location = '/lista.html'
           })
           .fail(function (err) {
             alert('No autorizado');

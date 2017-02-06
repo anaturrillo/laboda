@@ -3,6 +3,36 @@ $(document).ready(function () {
   //$('.fixed-action-btn').openFAB();
   $('.modal').modal();
 
+  $.ajax({
+    url: '/regalos/lista'
+  })
+  .done(function (data) {
+
+    if (data.length == 0) {
+      $('#present-content').html('<p>No hay regalos disponibles</p>');
+    } else {
+      $( "#presents-table" ).html('');
+
+      const content = data
+          .map(function (item, index) {
+            const template = $('#present-tr').find('tr')
+                .html()
+                .replace(/:id/g, item.id)
+                .replace(/:category/g, item.category)
+                .replace(/:name/g, item.name)
+                .replace(/:description/g, item.description)
+                .replace(/:image/g, item.image)
+                .replace(/:price/g, item.price)
+                .replace(/:status/g, item.status);
+
+            $('#presents-table').append('<tr>' + template + '</tr>');
+          });
+    }
+  })
+  .fail(function (err) {
+    window.location = '/error.html'
+  });
+
   $('[removeItem]').click(function () {
     event.preventDefault();
     const removeId = $(event.target).attr('data-id');
@@ -11,12 +41,13 @@ $(document).ready(function () {
       type: 'delete',
       data: {id: removeId}
     })
-        .done(function () {
-          location = "/regalos/lista";
-        })
-        .fail(function () {
-          location= "/error"
-        })
+    .done(function () {
+      //AGREGAR EL REGALO NUEVO?
+      //location = "/regalos/lista";
+    })
+    .fail(function () {
+      location= "/error"
+    })
   });
 
   $("[close-session]").click(function () {

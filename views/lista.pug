@@ -4,28 +4,40 @@ block content
     div.row
         div.col.s12
             h2.header.red-text.text-accent-3 Administrá tus regalos
-            if presents
-                table.highlight.bordered
-                    thead
-                        tr
-                            each key, i in presentsKeys
-                                th #{key}
-                    each present, i in presents
-                        tr
-                            each key, i in presentsKeys
-                                case key
-                                    when "image"
-                                        td
-                                            img(src="/images/#{present[key]}").responsive-img
-                                    when "price"
-                                        td $#{present[key]}
-                                    default
-                                        td #{present[key]}
-                            td
-                                a(href="", data-id="#{present.id}", removeItem="").btn-floating.red
-                                    i(data-id="#{present.id}").material-icons delete
-            else
-                p.orange-text No hay regalos cargados!
+    div.row
+        div#presents-content.col.s12
+            table.highlight.bordered
+                thead
+                    tr
+                        th id
+                        th categoría
+                        th nombre
+                        th descripcion
+                        th imagen
+                        th precio
+                        th estado
+                        th
+                        th
+                tbody#presents-table
+
+
+    div.hide
+        table#present-tr
+            tr
+                td :id
+                td :category
+                td :name
+                td :description
+                td
+                    img(src="/images/:image").responsive-img
+                td $:price
+                td
+                    span(class=":status", data-badge-caption=":status").badge.new
+                td
+                    a(href="", data-id=":id", removeItem="").btn-floating.red
+                        i(data-id=":id").material-icons delete
+
+
     div#uploadNewPresent.modal
         div.modal-content
             h4.indigo-text.text-lighten-4 Agregá un nuevo regalo
