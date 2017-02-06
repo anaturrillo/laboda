@@ -33,7 +33,7 @@ $(document).ready(function () {
     window.location = '/error.html'
   });
 
-  $('[removeItem]').click(function () {
+  $('#presents-content').on('click', 'td', function () {
     event.preventDefault();
     const removeId = $(event.target).attr('data-id');
     $.ajax({
@@ -43,7 +43,7 @@ $(document).ready(function () {
     })
     .done(function () {
       //AGREGAR EL REGALO NUEVO?
-      //location = "/regalos/lista";
+      location = "/lista.html";
     })
     .fail(function () {
       location= "/error"
