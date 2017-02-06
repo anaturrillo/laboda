@@ -30,7 +30,7 @@ $(document).ready(function () {
     }
   })
   .fail(function (err) {
-    window.location = '/error.html'
+    window.location = '/login.html'
   });
 
   $('#presents-content').on('click', 'td', function () {

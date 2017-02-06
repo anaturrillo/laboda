@@ -19,14 +19,9 @@ module.exports = function (connection) {
                   "currency_id": "ARS", // Available currencies at: https://api.mercadopago.com/currencies
                   "unit_price": present.price,
                   "description": present.description,
-                  "picture_url": 'http://e5421a6c.ngrok.io/images' + present.image
+                  "picture_url": 'http://casorio.com.ar/images' + present.image
                 }
-              ],
-              "back_urls": {
-                "success": "http://e5421a6c.ngrok.io/payment/success",
-                "failure": "http://e5421a6c.ngrok.io/payment/failure",
-                "pending": "http://e5421a6c.ngrok.io/payment/pending"
-              }
+              ]
             };
 
             return mp.createPreference(preference)

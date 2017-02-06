@@ -72,6 +72,18 @@ footer p {
 .present-list td{
     padding: 10px;
 }
+span.badge.new.disponible {
+    background-color: #76ff03;
+    color: #424242;
+}
+span.badge.new.approved {
+    background-color: #e3f2fd;
+    color: #424242;
+}
+span.badge.new.pending {
+    background-color: #ffe57f;
+    color: #424242;
+}
 
 /* HELPERS */
 a.btn {

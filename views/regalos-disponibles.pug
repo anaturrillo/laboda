@@ -16,13 +16,13 @@ block content
                         span.card-title.activator.grey-text.text-darken-4 :name - $:price
                             i.material-icons.right more_vert
                         p
-                            a(href=":url", target="_blank") REGALAR!
+                            a(href=":url", target="_blank", buyPresent="") REGALAR!
                     div.card-reveal
                         span.card-title.grey-text.text-darken-4 :name - $:price
                             i.material-icons.right close
                         p :description
                         p
-                            a(href=":url", target="_blank").btn
+                            a(href=":url", target="_blank", buyPresent="").btn
                                 i.material-icons shopping_cart
 
 

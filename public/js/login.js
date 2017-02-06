@@ -1,9 +1,7 @@
 
 $(document).ready(function () {
-
   $('#login').submit(function (evt) {
     event.preventDefault();
-
 
     const formData = $(this)
         .serializeArray()
@@ -11,7 +9,6 @@ $(document).ready(function () {
             obj[e.name] = e.value;
             return obj
           }, {});
-
 
     $.post('/login', formData)
           .done(function (resp) {
@@ -22,8 +19,5 @@ $(document).ready(function () {
             alert('No autorizado');
             console.log(err)
           });
-
-
-
   })
 });
