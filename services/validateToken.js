@@ -21,8 +21,11 @@ module.exports = connection => {
 
       return qp('SELECT * from brideAndGroom WHERE token=?', cookies.token)
           .then(function(result){
-            if (result.length > 0) next();
-            else res.render('login')
+             if (result.length > 0) {
+               next();
+             } else {
+               res.render('login')
+             }
 
           })
           .catch(function(e){
