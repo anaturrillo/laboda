@@ -57,6 +57,14 @@ footer p {
 .index #content {
     margin: 0;
 }
+
+/* PRESENT LIST */
+.present-list.container{
+    width: 85%;
+}
+.present-list img.responsive-img {
+    max-width: 40%;
+}
 /* HELPERS */
 a.btn {
     margin-right: 10px;
