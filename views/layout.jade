@@ -21,8 +21,11 @@ html
                         i.material-icons menu
                     ul
                         li
-                            a(href='#uploadNewPresent').btn-floating.red.accent-3.modal-trigger
+                            a(href='#uploadNewPresent', title="agregar a la lista").btn-floating.red.accent-3.modal-trigger
                                 i.material-icons cloud_upload
+                        li
+                            a(href="", close-session="", title="cerrar session").btn-floating
+                                i.material-icons exit_to_app
             block footer
                 footer.valign-wrapper.center-align.indigo.lighten-3
                     p.valign La boda de Flor y Lenny

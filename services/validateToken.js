@@ -21,11 +21,31 @@ module.exports = connection => {
 
       return qp('SELECT * from brideAndGroom WHERE token=?', cookies.token)
           .then(function(result){
-             next();
+            if (result.length > 0) next();
+            else res.render('login')
+
           })
           .catch(function(e){
             console.error("validateToken.validate: forbidden", cookies.token);
-            res.redirect('/login')
+            res.render('error')
+          });
+    },
+    login: function (req, res, next) {
+      const qp = queryPromise(connection);
+      const cookies = cookie2Object(req.headers.cookie || '');
+
+      return qp('SELECT * from brideAndGroom WHERE token=?', cookies.token)
+          .then(function(result){
+            if (result.length == 0) {
+              next()
+            } else {
+              res.redirect('/regalos/lista')
+            }
+
+          })
+          .catch(function(e){
+            console.error("validateToken.validate: forbidden", cookies.token);
+            res.render('error')
           });
     }
   }

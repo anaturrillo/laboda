@@ -1,8 +1,10 @@
 const express = require('express');
 const toLogin = require('./../services/login');
+const validateToken = require('./../services/validateToken');
 
 module.exports = function (connection) {
   const router = express.Router();
+  const vt = validateToken(connection);
 
   router.post('/', function (req, res) {
     const user = req.body;

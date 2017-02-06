@@ -6,7 +6,7 @@ $(document).ready(function () {
     event.preventDefault();
     const removeId = $('#removeItem').attr('data-id');
     $.ajax({
-      url: '/api/present',
+      url: '/regalos',
       type: 'DELETE',
       data: {id: removeId}
     })
@@ -19,8 +19,9 @@ $(document).ready(function () {
   });
   
   $("[close-session]").click(function () {
-    debugger
-    document.cookie = '';
+    event.preventDefault();
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location = '/'
   })
 
 });

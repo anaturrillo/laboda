@@ -5,7 +5,6 @@ block content
     div.row
         div.col.s12
             h2.header.red-text.text-accent-3 Administrá tus regalos
-            a(close-session="", href="") cerrar sesion
             if presents
                 table.highlight.bordered
                     thead
@@ -22,8 +21,8 @@ block content
                                     default
                                         td #{present[key]}
                             td
-                                a(href="", data-id="#{present.id}")#removeItem
-                                    i.material-icons.red-text delete
+                                a(href="", data-id="#{present.id}")#removeItem.btn-floating.red
+                                    i.material-icons delete
             else
                 p.orange-text No hay regalos cargados!
     div#uploadNewPresent.modal
