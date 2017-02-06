@@ -5,11 +5,12 @@ module.exports = function (connection) {
   const router = express.Router();
   const vt = validateToken(connection);
 
-  router.get('/', vt.validate, function (req, res) {
+  router.get('/', function (req, res) {
     res.render('index', {className: 'index'});
   });
 
-  router.get('/novios', function (req, res) {
+  router.get('/novios', vt.login, function (req, res) {
+
     res.render('login', {className: 'login-novios'});
   });
 

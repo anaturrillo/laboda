@@ -2,12 +2,12 @@
 $(document).ready(function () {
   //$('.fixed-action-btn').openFAB();
   $('.modal').modal();
-  $('#removeItem').click(function () {
+  $('[removeItem]').click(function () {
     event.preventDefault();
-    const removeId = $('#removeItem').attr('data-id');
+    const removeId = $(event.target).attr('data-id');
     $.ajax({
-      url: '/api/present',
-      type: 'DELETE',
+      url: '/regalos',
+      type: 'delete',
       data: {id: removeId}
     })
     .done(function () {
@@ -19,8 +19,16 @@ $(document).ready(function () {
   });
   
   $("[close-session]").click(function () {
-    debugger
-    document.cookie = '';
+    event.preventDefault();
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location = '/'
+  });
+
+  $("[uploadPresent]").click(function () {
+    const data = $('form').serializeArray();
+    if (data.every(e => e.value)) {
+      $('[submitForm]').click()
+    }
   })
 
 });

@@ -1,15 +1,5 @@
 
 $(document).ready(function () {
-  const cookie = document
-      .cookie
-      .replace(' ', '')
-      .split(';')
-      .reduce( (obj,e) => {
-        const splitted = e.split('=');
-        obj[splitted[0]] = splitted[1];
-        return obj }, {} );
-
-  if (cookie.token) window.location = '/regalos/lista';
 
   $('#login').submit(function (evt) {
     event.preventDefault();

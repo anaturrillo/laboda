@@ -6,7 +6,11 @@ module.exports = function (connection, req) {
   const qp = queryPromise(connection);
 
   present.status = 'disponible';
-  present.image = req.file.filename;
+  if (req.file) {
+    present.image = req.file.filename;
+  } else {
+    present.image = 'default.jpg'
+  }
 
   return qp('INSERT INTO presents SET ?', present);
 };

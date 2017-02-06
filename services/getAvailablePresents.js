@@ -22,8 +22,9 @@ module.exports = function (connection) {
                 }
               ],
               "back_urls": {
-                "success": "http://localhost:3000/success",
-                "failure": ""
+                "success": "/success",
+                "failure": "",
+                "pending": ""
               }
             };
 
