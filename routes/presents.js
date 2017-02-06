@@ -49,7 +49,8 @@ module.exports = function (connection) {
           if (result.status == 'ok') {
             const presents = result.response;
             const presentsKeys = Object.keys(presents[0]);
-            res.render('presentsList', {presents, presentsKeys, className: 'present-list'});
+            res.json(presents);
+            //res.render('presentsList', {presents, presentsKeys, className: 'present-list'});
           } else {
             res.render('presentsList', {className: 'present-list'});
           }
@@ -70,11 +71,12 @@ module.exports = function (connection) {
           }
         })
         .then(function(presents){
-          res.render('availablePresents', {className: 'available-presents', presents});
+          res.json(presents);
         })
         .catch(function(err){
           console.error("GET /diponibles", err);
-          res.render('error', {className: 'present-list', error: err});
+          res.status(403);
+          res.json({error: err});
         });
   });
 

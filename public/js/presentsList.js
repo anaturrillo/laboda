@@ -2,6 +2,7 @@
 $(document).ready(function () {
   //$('.fixed-action-btn').openFAB();
   $('.modal').modal();
+
   $('[removeItem]').click(function () {
     event.preventDefault();
     const removeId = $(event.target).attr('data-id');
@@ -10,14 +11,14 @@ $(document).ready(function () {
       type: 'delete',
       data: {id: removeId}
     })
-    .done(function () {
-      location = "/regalos/lista";
-    })
-    .fail(function () {
-      location= "/error"
-    })
+        .done(function () {
+          location = "/regalos/lista";
+        })
+        .fail(function () {
+          location= "/error"
+        })
   });
-  
+
   $("[close-session]").click(function () {
     event.preventDefault();
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
