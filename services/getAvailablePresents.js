@@ -37,7 +37,5 @@ module.exports = function (connection) {
                   console.error(err)
                 })
           }));
-      }).catch(function (e) {
-        console.error('fallo getAvailablePresents', e)
       })
 };
