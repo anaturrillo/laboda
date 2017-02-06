@@ -7,25 +7,21 @@ module.exports = function (connection) {
 
   const qp = queryPromise(connection);
 
-  return qp('SELECT name, description, image, price, url FROM presents WHERE status="disponible"')
+  return qp('SELECT id, name, description, image, price, url FROM presents WHERE status="disponible"')
       .then(function (presents) {
-        if (presents.length >= 1) {
-          const mpPresents = Promise.all(presents.map(function (present) {
+          return Promise.all(presents.map(function (present) {
             const preference = {
               "items": [
                 {
+                  "id": present.id,
                   "title": present.name,
                   "quantity": 1,
                   "currency_id": "ARS", // Available currencies at: https://api.mercadopago.com/currencies
                   "unit_price": present.price,
-                  "description": present.description
+                  "description": present.description,
+                  "picture_url": 'http://casorio.com.ar/images' + present.image
                 }
-              ],
-              "back_urls": {
-                "success": "/success",
-                "failure": "",
-                "pending": ""
-              }
+              ]
             };
 
             return mp.createPreference(preference)
@@ -36,18 +32,5 @@ module.exports = function (connection) {
                   console.error(err)
                 })
           }));
-
-          return {
-            status: 'ok',
-            response: mpPresents
-          }
-        }
-        return notOk;
       })
-
-};
-
-const notOk = {
-  status: 'not_ok',
-  response: 'no hay regalos disponibles'
 };

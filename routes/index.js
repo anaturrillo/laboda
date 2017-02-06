@@ -10,8 +10,7 @@ module.exports = function (connection) {
   });
 
   router.get('/novios', vt.login, function (req, res) {
-
-    res.render('login', {className: 'login-novios'});
+    res.redirect('/login.html');
   });
 
   router.get('/error', function (req, res) {

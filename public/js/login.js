@@ -1,9 +1,7 @@
 
 $(document).ready(function () {
-
   $('#login').submit(function (evt) {
     event.preventDefault();
-
 
     const formData = $(this)
         .serializeArray()
@@ -12,18 +10,14 @@ $(document).ready(function () {
             return obj
           }, {});
 
-
     $.post('/login', formData)
           .done(function (resp) {
             document.cookie= "token=" + resp.token;
-            window.location = '/regalos/lista'
+            window.location = '/lista.html'
           })
           .fail(function (err) {
             alert('No autorizado');
             console.log(err)
           });
-
-
-
   })
 });

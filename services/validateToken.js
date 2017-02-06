@@ -24,13 +24,14 @@ module.exports = connection => {
              if (result.length > 0) {
                next();
              } else {
-               res.render('login')
+               res.status(403);
+               res.json({messaje: 'no autorizado'})
              }
 
           })
           .catch(function(e){
             console.error("validateToken.validate: forbidden", cookies.token);
-            res.render('error')
+            res.redirect('/error.html')
           });
     },
     login: function (req, res, next) {
@@ -42,13 +43,14 @@ module.exports = connection => {
             if (result.length == 0) {
               next()
             } else {
-              res.redirect('/regalos/lista')
+              res.redirect('/lista.html')
             }
 
           })
           .catch(function(e){
             console.error("validateToken.validate: forbidden", cookies.token);
-            res.render('error')
+            res.status(500);
+            res.json({'error': e})
           });
     }
   }

@@ -47,6 +47,10 @@ footer p {
 .header {
     font-weight: 100;
 }
+#preloader{
+    left: 50%;
+    margin-left: -32px;
+}
 /* INDEX */
 .in-container {
     height: 100%
@@ -65,6 +69,22 @@ footer p {
 .present-list img.responsive-img {
     max-width: 40%;
 }
+.present-list td{
+    padding: 10px;
+}
+span.badge.new.disponible {
+    background-color: #76ff03;
+    color: #424242;
+}
+span.badge.new.approved {
+    background-color: #e3f2fd;
+    color: #424242;
+}
+span.badge.new.pending {
+    background-color: #ffe57f;
+    color: #424242;
+}
+
 /* HELPERS */
 a.btn {
     margin-right: 10px;

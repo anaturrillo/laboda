@@ -1,0 +1,20 @@
+extends layout
+
+block menu
+
+block content
+    #content.login
+        div.row
+            div.col-sm-1.col-md-4
+            div.col-sm-8.col-md-4
+                form#login.form-signin
+                    h2.form-signin-heading Ingresá tus datos
+                    label(for="userName").sr-only Nombre de usuario
+                    input(type="text", placeholder="Nombre de usuario", required="", autofocus="", name="name")#userName.form-control
+                    label(for="userPassword").sr-only Password
+                    input(type="password", placeholder="Password", required="", name="password")#userPassword.form-control
+                    button(type="submit").btn.btn-lg.btn-block.light-bg Ingresar!
+            div.col-sm-1.col-md-4
+block toolbar
+block scripts
+    script(src="/js/login.js")
