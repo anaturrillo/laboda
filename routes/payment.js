@@ -17,6 +17,21 @@ module.exports = function (connection) {
   router.get('/pending', function (req, res) {
     res.redirect('/')
   });
+  
+  router.post('/statusUpdate', function (req, res) {
+    const updateData = {
+      itemId: req.body.id,
+      status: req.body.status
+    };
+    updateStatus(connection, updateData)
+    .then(function () {
+
+      res.json({newStatus: 'selected'})
+    })
+    .catch(function (err) {
+      console.error('falló update del regalo', err)
+    });
+  });
 
   router.post('/notification', function (req, res) {
     const mp = new MP(c.keys.Client_id, c.keys.Client_secret);
@@ -30,7 +45,13 @@ module.exports = function (connection) {
         })
         .then(function (mo) {
           console.log('devuelve la merchant_order');
-          return updateStatus(connection, mo)
+          const status = mo.response.payments[0].status == 'rejected' ? 'disponible' : mo.response.payments[0].status;
+          const updateData = {
+            itemId: mo.response.items[0].id,
+            status: mo.response.payments[0].status
+          };
+
+          return updateStatus(connection, updateData)
         })
         .catch(function (err) {
           console.error('falló update del regalo', err)
