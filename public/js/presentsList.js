@@ -7,6 +7,7 @@ $(document).ready(function () {
   $('select').material_select();
 
   let presentsData = [];
+  let filteredData = [];
 
   const addCustomContent = elem => content => $(elem).html(content);
   const addMain = addCustomContent('#presents-table');
@@ -39,12 +40,13 @@ $(document).ready(function () {
           cont += '<div class="chip">' + e.name + '</div>';
           return cont
         }, ''));
-
-    $('#category').append(data
+    $('select').material_select('destroy');
+    $('.categorySelect').append(data
         .reduce(function (cont, e) {
           cont += '<option value="' + e.name + '">' + e.name + '</option>';
           return cont
-        }, ''))
+        }, ''));
+    $('select').material_select();
   };
 
   // BUSCA LOS REGALOS
@@ -120,7 +122,7 @@ $(document).ready(function () {
   $('#filterByPrice').change(function () {
     const selected = $('#filterByPrice').val();
 
-    const filters = {
+    const byPriceRange = {
       _100_500: e => e.price > 100 && e.price <= 500,
       _500_1000: e => e.price > 500 && e.price <= 1000,
       _1000_3000: e => e.price > 1000 && e.price <= 3000,
@@ -130,7 +132,21 @@ $(document).ready(function () {
     };
 
     if (presentsData && selected) {
-      const results = presentsData.filter(filters[selected]);
+      const results = presentsData.filter(byPriceRange[selected]);
+      if(results.length) {
+        printPresents(results);
+      } else {
+        addMain('No hay ningún regalo en este rango de precios.')
+      }
+    }
+  });
+
+  $('#filterByCategory').change(function () {
+    const selected = $('#filterByCategory').val();
+    const byCategory = selectedCategory => e => e.category == selectedCategory;
+
+    if (presentsData && selected) {
+      const results = presentsData.filter(byCategory(selected));
       if(results.length) {
         printPresents(results);
       } else {
