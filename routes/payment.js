@@ -62,13 +62,13 @@ module.exports = function (connection) {
 };
 
 const statusConverter = {
-  pending: _ => 'pendiente',
-  approved: _ => 'aprobado',
-  in_process: _ => 'en proceso',
-  in_mediation: _ => 'en mediación',
-  rejected: _ => 'disponible', // no me importa q haya sido rechazado, esta disponible para el sistema
-  cancelled: _ => 'disponible',
-  refunded: _ => 'disponible',
-  charged_back: _ => 'disponibla'
+  pending: 'pendiente',
+  approved: 'aprobado',
+  in_process: 'en proceso',
+  in_mediation: 'en mediación',
+  rejected: 'disponible', // no me importa q haya sido rechazado, esta disponible para el sistema
+  cancelled: 'disponible',
+  refunded: 'disponible',
+  charged_back: 'disponibla'
 
 };
