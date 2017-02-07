@@ -18,6 +18,8 @@ const editPresent =           require('./../services/editPresent.js');
 const removePresents =        require('./../services/removePresent.js');
 const getAllPresents =        require('./../services/getAllPresents.js');
 const getAvailablePresents =  require('../services/getAvailablePresents.js');
+const getCategories  =        require('../services/getCategories');
+const addCategory =           require('../services/addCategory');
 
 module.exports = function (connection) {
   const router = express.Router();
@@ -52,7 +54,28 @@ module.exports = function (connection) {
           res.status(500);
           res.json({error: err});
         });
+  });
 
+  router.get('/categorias', vt.validate, function (req, res) {
+    getCategories(connection)
+        .then(function (categories) {
+          res.json(categories);
+        })
+        .catch(function(err){
+          console.error("GET /categorias", err);
+          res.status(500);
+          res.json({error: err});
+        });
+  });
+
+  router.post('/categorias', vt.validate, function (req, res) {
+    addCategory(connection, req)
+        .then(_ => res.json({status:'ok'}))
+        .catch(function(err){
+          console.error("GET /categorias", err);
+          res.status(500);
+          res.json({error: err});
+        });
   });
 
   router.get('/disponibles', function (req, res) {

@@ -5,7 +5,19 @@ block content
         div.row
             div.col.s12
                 h2.header.grey-text.text-darken-3 Administrá tus regalos
-
+        div.row
+            div.col.s12
+                form
+                    div.row
+                        div.col.s12.m6.l4
+                            select#filterByPrice
+                                option(value="", disabled="", selected="") Elegir rango de precios
+                                option(value="_100_500") $100 - $500
+                                option(value="_500_1000") $500 - $1000
+                                option(value="_1000_3000") $1000 - $3000
+                                option(value="_3000_1500") $3000 - $15000
+                                option(value="_15000_") más de $15000
+                                option(value="all") ver todos
         div.row
             div#presents-content.col.s12
                 table.highlight.bordered
@@ -52,8 +64,8 @@ block content
                             label(for="price") Precio
                     div.row
                         div.input-field.col.s12
-                            input(name="category", type="text", required="")#category.validate
-                            label(for="category") Categoría
+                            select(name="category", type="text", required="")#category.validate.browser-default
+                                option(value="") Seleccionar una categoría
                     div.row
                         div.input-field.col.s12
                             textarea(data-length="400", name="description", required="")#description.materialize-textarea
@@ -72,5 +84,19 @@ block content
                         a(href="#!").right.modal-action.modal-close.waves-effect.waves-amber.btn-flat.indigo-text.text-lighten-4 Cancelar
 
 
+        div#categories.modal
+            div.modal-content
+                h4.indigo-text.text-lighten-4 Categorías
+                p#catList
+                form
+                    div.row
+                        div.input-field.col.s12
+                            input(name="name", type="text", required="")#categoryName.validate
+                            label(for="categoryName") Nueva categoría
+                            a#addNewCategory.btn.orange.white-text
+                                i.material-icons add
+                    div.row
+                        div.input-field.col.s12
+                            p#catMessage
 block scripts
     script(src="/js/presentsList.js")
