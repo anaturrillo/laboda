@@ -4,18 +4,18 @@ block content
     #content.present-list
         div.row
             div.col.s12
-                h2.header.red-text.text-accent-3 Administrá tus regalos
+                h2.header.grey-text.text-darken-3 Administrá tus regalos
 
         div.row
             div#presents-content.col.s12
                 table.highlight.bordered
                     thead
                         tr
-                            th id
-                            th categoría
+                            th.hide-on-small-only id
+                            th.hide-on-small-only categoría
                             th nombre
-                            th descripción
-                            th imagen
+                            th.hide-on-small-only descripción
+                            th.hide-on-small-only imagen
                             th precio
                             th estado
                             th
@@ -25,17 +25,17 @@ block content
         div.hide
             table#present-tr
                 tr
-                    td :id
-                    td :category
+                    td.hide-on-small-only :id
+                    td.hide-on-small-only :category
                     td :name
-                    td :description
-                    td
-                        img(src="/images/:image").responsive-img
+                    td.hide-on-small-only :description
+                    td.hide-on-small-only
+                        img(src="/uploads/images/:image").responsive-img
                     td $:price
                     td
                         span(class=":status", data-badge-caption=":status").badge.new
                     td
-                        a(href="", data-id=":id").removeItem.btn-floating.red
+                        a(href="", data-id=":id").removeItem.btn-floating.grey.darken-2
                             i(data-id=":id").material-icons delete
 
 
@@ -60,7 +60,7 @@ block content
                             label(for="description") Descripción
                     div.row
                         div.input-field.col.s12.file-field
-                            div.btn
+                            div.btn.grey.darken-3
                                 span Imagen
                                 input(type="file", name="image")
                             div.file-path-wrapper

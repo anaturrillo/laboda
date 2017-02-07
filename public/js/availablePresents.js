@@ -15,7 +15,6 @@ $(document).ready(function () {
       const content = data
           .map(function (item, index) {
             let template = '';
-            if((index+1)%3 == 0) template += '<div class="row">';
 
             template += $('#present-card')
                 .html()
@@ -26,7 +25,6 @@ $(document).ready(function () {
                 .replace(/:url/g, item.url)
                 .replace(/:price/g, item.price);
 
-            if((index+1)%3 == 0) template += '</div>';
 
             $('#present-content').append(template);
           });

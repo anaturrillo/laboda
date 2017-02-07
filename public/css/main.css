@@ -24,10 +24,35 @@
 }
 
 /* GENERAL LAYOUT */
+.main-wrapper {
+    width: 100%;
+    background: url('../images/bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/bg.jpg', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
+}
 #content {
     /*margin-bottom: 60px;*/
 }
 
+/* menu */
+.side-nav{
+    width: 173px;
+}
+
+/* header */
+.header {
+    font-weight: 100;
+}
+#preloader{
+    left: 50%;
+    margin-left: -32px;
+}
+
+/*footer*/
 footer {
     position: fixed;
     bottom:0;
@@ -44,13 +69,6 @@ footer p {
     width: 100%;
 }
 
-.header {
-    font-weight: 100;
-}
-#preloader{
-    left: 50%;
-    margin-left: -32px;
-}
 /* INDEX */
 .in-container {
     height: 100%
@@ -60,6 +78,11 @@ footer p {
 }
 .index #content {
     margin: 0;
+}
+
+.index .btn:hover {
+    background-color: #fafafa !important;
+    color: #212121;
 }
 
 /* PRESENT LIST */
@@ -72,17 +95,31 @@ footer p {
 .present-list td{
     padding: 10px;
 }
-span.badge.new.disponible {
-    background-color: #76ff03;
-    color: #424242;
+span.badge{
+    border-radius: 4px !important;
 }
-span.badge.new.approved {
+span.badge.new.mediacion {
+    background-color: #e0e0e0;
+    color: #bdbdbd;
+}
+span.badge.new.proceso {
+    background-color: #e0e0e0;
+    color: #bdbdbd;
+}
+span.badge.new.disponible {
+    background-color: #ff9800;
+    color: #FFFFFF;
+}
+span.badge.new.aprobado {
     background-color: #e3f2fd;
     color: #424242;
 }
-span.badge.new.pending {
-    background-color: #ffe57f;
-    color: #424242;
+span.badge.new.pendiente {
+    background-color: #e0e0e0;
+    color: #bdbdbd;
+}
+div.present-list{
+    padding-bottom: 30px;
 }
 
 /* HELPERS */
@@ -96,4 +133,11 @@ input {
 
 input[type="submit"]{
     line-height: 35px;
+}
+td, th{
+    text-align: center;
+}
+span.badge{
+    float: none;
+    display: inline-block;
 }

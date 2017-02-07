@@ -64,11 +64,11 @@ module.exports = function (connection) {
 const statusConverter = {
   pending: 'pendiente',
   approved: 'aprobado',
-  in_process: 'en proceso',
-  in_mediation: 'en mediación',
+  in_process: 'proceso',
+  in_mediation: 'mediacion',
   rejected: 'disponible', // no me importa q haya sido rechazado, esta disponible para el sistema
   cancelled: 'disponible',
   refunded: 'disponible',
-  charged_back: 'disponibla'
+  charged_back: 'disponible'
 
 };
