@@ -19,7 +19,7 @@ module.exports = function (connection) {
                   "currency_id": "ARS", // Available currencies at: https://api.mercadopago.com/currencies
                   "unit_price": present.price,
                   "description": present.description,
-                  "picture_url": 'http://casorio.com.ar/images/' + present.image
+                  "picture_url": 'http://casorio.com.ar/uploads/images/' + present.image
                 }
               ],
               "auto_return": 'approved',

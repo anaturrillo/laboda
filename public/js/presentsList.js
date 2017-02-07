@@ -2,6 +2,7 @@
 $(document).ready(function () {
   //$('.fixed-action-btn').openFAB();
   $('.modal').modal();
+  $(".button-collapse").sideNav();
 
   $.ajax({
     url: '/regalos/lista'
