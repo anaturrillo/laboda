@@ -18,6 +18,9 @@ html
                         i.material-icons menu
                     ul.right.hide-on-med-and-down
                         li
+                            a(href="/", title="inicio")
+                                i.material-icons home
+                        li
                             a(href='#uploadNewPresent', title="agregar a la lista")
                                 i.material-icons cloud_upload
                         li
@@ -26,23 +29,22 @@ html
                         li
                             a(href="", close-session="", title="cerrar sesión")
                                 i.material-icons exit_to_app
-                        li
-                            a(href="/", title="inicio")
-                                i.material-icons home
+
 
                     ul#mobile-demo.side-nav
+                        li
+                            a(href="/") Inicio
+                                i.material-icons home
                         li
                             a(href='#uploadNewPresent') Crear regalo
                                 i.material-icons cloud_upload
                         li
-                            a(href='#categories', title="categorias")
+                            a(href='#categories', title="categorias") Categorías
                                 i.material-icons settings
                         li
                             a(href="", close-session="") Cerrar sesión
                                 i.material-icons exit_to_app
-                        li
-                            a(href="/") Inicio
-                                i.material-icons home
+
         div#container.container
 
             block content
