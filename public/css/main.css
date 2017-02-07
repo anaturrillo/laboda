@@ -42,6 +42,9 @@
 .side-nav{
     width: 173px;
 }
+nav .brand-logo{
+    padding-left: 8px;
+}
 
 /* header */
 .header {
