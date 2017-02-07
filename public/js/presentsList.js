@@ -143,7 +143,7 @@ $(document).ready(function () {
     event.preventDefault();
     const catName = $('#categoryName').val();
     if (!catName) {
-      catName.addClass('error');
+      $('#categoryName').addClass('error');
     } else {
       $.ajax({
         url: '/regalos/categorias',
