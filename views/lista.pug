@@ -64,8 +64,8 @@ block content
                             label(for="price") Precio
                     div.row
                         div.input-field.col.s12
-                            input(name="category", type="text", required="")#category.validate
-                            label(for="category") Categoría
+                            select(name="category", type="text", required="")#category.validate.browser-default
+                                option(value="") Seleccionar una categoría
                     div.row
                         div.input-field.col.s12
                             textarea(data-length="400", name="description", required="")#description.materialize-textarea

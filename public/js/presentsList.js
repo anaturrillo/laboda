@@ -38,10 +38,16 @@ $(document).ready(function () {
         .reduce(function (cont, e) {
           cont += '<div class="chip">' + e.name + '</div>';
           return cont
+        }, ''));
+
+    $('#category').append(data
+        .reduce(function (cont, e) {
+          cont += '<option value="' + e.name + '">' + e.name + '</option>';
+          return cont
         }, ''))
   };
 
-
+  // BUSCA LOS REGALOS
   $.ajax({
     url: '/regalos/lista'
   })
@@ -59,22 +65,26 @@ $(document).ready(function () {
     window.location = '/error.html'
   });
 
+  // BUSCA LAS CATGORIAS
   $.ajax({
     url: '/regalos/categorias'
 
-  }).done(function (data) {
+  })
+  .done(function (data) {
     if (data.length == 0) {
       addToCategories('No hay categorías cargadas');
     } else {
       printCategories(data);
     }
 
-  }).fail(function (err) {
+  })
+  .fail(function (err) {
 
     window.location = '/error.html'
 
   });
 
+  // BORRA REGALOS
   $('#presents-content').on('click', 'td', function () {
     event.preventDefault();
     const removeId = $(event.target).attr('data-id');
