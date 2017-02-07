@@ -19,6 +19,7 @@ $(document).ready(function () {
 
             template += $('#present-card')
                 .html()
+                .replace(/:id/g, item.id)
                 .replace(/:image/g, item.image)
                 .replace(/:name/g, item.name)
                 .replace(/:description/g, item.description)
@@ -36,4 +37,12 @@ $(document).ready(function () {
     console.log('fallo get /regalos/lista')
   });
 
+  $('[buyPresent]').on('click', function () {
+    const id = $(event.target).attr('data-id');
+    debugger
+    $.ajax({
+      url: '/regalos/disponibles',
+      type: 'GET'
+    })
+  })
 });
