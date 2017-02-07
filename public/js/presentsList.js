@@ -10,6 +10,8 @@ $(document).ready(function () {
 
   const addCustomContent = elem => content => $(elem).html(content);
   const addMain = addCustomContent('#presents-table');
+  const addToCategories = addCustomContent('#catList');
+  const addToMessage = addCustomContent('#catMessage');
 
   const printPresents = function (data) {
     addMain('');
@@ -29,6 +31,16 @@ $(document).ready(function () {
     });
   };
 
+  const printCategories = function (data) {
+    addToCategories('');
+
+    addToCategories(data
+        .reduce(function (cont, e) {
+          cont += '<div class="chip">' + e.name + '</div>';
+          return cont
+        }, ''))
+  };
+
 
   $.ajax({
     url: '/regalos/lista'
@@ -44,7 +56,23 @@ $(document).ready(function () {
     }
   })
   .fail(function (err) {
-    window.location = '/login.html'
+    window.location = '/error.html'
+  });
+
+  $.ajax({
+    url: '/regalos/categorias'
+
+  }).done(function (data) {
+    if (data.length == 0) {
+      addToCategories('No hay categorías cargadas');
+    } else {
+      printCategories(data);
+    }
+
+  }).fail(function (err) {
+
+    window.location = '/error.html'
+
   });
 
   $('#presents-content').on('click', 'td', function () {
@@ -92,13 +120,32 @@ $(document).ready(function () {
     };
 
     if (presentsData && selected) {
-      debugger
       const results = presentsData.filter(filters[selected]);
       if(results.length) {
         printPresents(results);
       } else {
         addMain('No hay ningún regalo en este rango de precios.')
       }
+    }
+  });
+
+  $('#addNewCategory').click(function () {
+    event.preventDefault();
+    const catName = $('#categoryName').val();
+    if (!catName) {
+      catName.addClass('error');
+    } else {
+      $.ajax({
+        url: '/regalos/categorias',
+        type: 'post',
+        data: {name: catName}
+
+      }).done(function () {
+        $('#catList').append('<div class="chip">' + catName + '</div>');
+        $('#categoryName').val('')
+      }).fail(function () {
+        addToMessage('Ups, parece que no se pudo agregar la catagoria')
+      })
     }
   })
 

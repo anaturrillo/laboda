@@ -84,5 +84,19 @@ block content
                         a(href="#!").right.modal-action.modal-close.waves-effect.waves-amber.btn-flat.indigo-text.text-lighten-4 Cancelar
 
 
+        div#categories.modal
+            div.modal-content
+                h4.indigo-text.text-lighten-4 Categorías
+                p#catList
+                form
+                    div.row
+                        div.input-field.col.s12
+                            input(name="name", type="text", required="")#categoryName.validate
+                            label(for="categoryName") Nueva categoría
+                            a#addNewCategory.btn.orange.white-text
+                                i.material-icons add
+                    div.row
+                        div.input-field.col.s12
+                            p#catMessage
 block scripts
     script(src="/js/presentsList.js")
