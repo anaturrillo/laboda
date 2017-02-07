@@ -40,12 +40,15 @@ $(document).ready(function () {
           cont += '<div class="chip">' + e.name + '</div>';
           return cont
         }, ''));
+
     $('select').material_select('destroy');
+
     $('.categorySelect').append(data
         .reduce(function (cont, e) {
           cont += '<option value="' + e.name + '">' + e.name + '</option>';
           return cont
-        }, ''));
+        }, '') + '<option value="all">ver todas</option> ');
+
     $('select').material_select();
   };
 
@@ -143,7 +146,10 @@ $(document).ready(function () {
 
   $('#filterByCategory').change(function () {
     const selected = $('#filterByCategory').val();
-    const byCategory = selectedCategory => e => e.category == selectedCategory;
+    const byCategory = selectedCategory => e => {
+      if(selectedCategory == 'all') return e
+      return e.category == selectedCategory
+    };
 
     if (presentsData && selected) {
       const results = presentsData.filter(byCategory(selected));
