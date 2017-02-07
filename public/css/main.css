@@ -24,23 +24,35 @@
 }
 
 /* GENERAL LAYOUT */
-.main-wrapper {
+body {
     width: 100%;
-    background: url('../images/bg.jpg') no-repeat center center fixed;
+    background: url('../images/bg-t.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/bg.jpg', sizingMethod='scale');
-    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/bg-t.jpg', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/bg-t.jpg', sizingMethod='scale')";
 }
 #content {
     /*margin-bottom: 60px;*/
 }
 
 /* menu */
-.side-nav{
+.side-nav {
     width: 173px;
+}
+.desk-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    border-radius: 3px;
+}
+nav{
+    box-shadow: none;
+}
+nav .brand-logo{
+    padding-left: 8px;
 }
 
 /* header */
@@ -86,8 +98,8 @@ footer p {
 }
 
 /* PRESENT LIST */
-.present-list.container{
-    width: 85%;
+.present-list .row{
+    background-color: white;
 }
 .present-list img.responsive-img {
     max-width: 40%;
