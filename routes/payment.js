@@ -48,7 +48,7 @@ module.exports = function (connection) {
           const status = mo.response.payments[0].status == 'rejected' ? 'disponible' : mo.response.payments[0].status;
           const updateData = {
             itemId: mo.response.items[0].id,
-            status: mo.response.payments[0].status
+            status: statusConverter[mo.response.payments[0].status]
           };
 
           return updateStatus(connection, updateData)
@@ -59,4 +59,16 @@ module.exports = function (connection) {
   });
 
   return router
+};
+
+const statusConverter = {
+  pending: _ => 'pendiente',
+  approved: _ => 'aprobado',
+  in_process: _ => 'en proceso',
+  in_mediation: _ => 'en mediación',
+  rejected: _ => 'disponible', // no me importa q haya sido rechazado, esta disponible para el sistema
+  cancelled: _ => 'disponible',
+  refunded: _ => 'disponible',
+  charged_back: _ => 'disponibla'
+
 };
