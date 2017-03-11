@@ -24,8 +24,13 @@
 }
 
 /* GENERAL LAYOUT */
-body {
+#main-wrapper {
     width: 100%;
+}
+#wrapper {
+    width: 100%;
+}
+#wrapper.index {
     background: url('../images/bg-t.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -35,7 +40,8 @@ body {
     -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/bg-t.jpg', sizingMethod='scale')";
 }
 #content {
-    /*margin-bottom: 60px;*/
+    width: 70%;
+    margin: 0 auto !important;
 }
 
 /* menu */
@@ -94,7 +100,7 @@ footer p {
 
 .index .btn:hover {
     background-color: #fafafa !important;
-    color: #212121;
+    color: #9fa8da;
 }
 
 /* PRESENT LIST */
@@ -152,4 +158,8 @@ td, th{
 span.badge{
     float: none;
     display: inline-block;
+}
+
+.modal {
+    background-color: #fff;
 }

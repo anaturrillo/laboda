@@ -9,6 +9,7 @@ html
         link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
     body
+        block background
         block menu
             nav
                 div.nav-wrapper.indigo.darken-4
@@ -36,7 +37,7 @@ html
                             li
                                 a(href="/") Inicio
                                     i.material-icons home
-        div#container.container
+        div#main-wrapper
 
             block content
 
@@ -65,7 +66,7 @@ html
                             a(href="/").btn-floating.green
                                 i.material-icons home
             block footer
-                footer.valign-wrapper.center-align.indigo.darken-4.lighten-3.white-text
+                footer.valign-wrapper.center-align.indigo.lighten-3.white-text
                     p.valign La boda de Flor y Lenny
 
             block scripts
