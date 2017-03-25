@@ -33,13 +33,13 @@ block menu
 
 block content
     div#wrapper
-        div#content.present-list
+        div#content.gifts-list
             div.row
                 div.col.s12
                     h2.header.grey-text.text-darken-3 Administrá tus regalos
 
             div.row
-                div#presents-content.col.s12
+                div#gifts-content.col.s12
                     table.highlight.bordered
                         thead
                             tr
@@ -47,16 +47,16 @@ block content
                                 th.hide-on-small-only categoría
                                 th de
                                 th.hide-on-small-only mensaje
-                        tbody#presents-table
+                        tbody#gifts-table
 
 
             div.hide
-                table#present-tr
+                table#gift-tr
                     tr
                         td :gift
                         td.hide-on-small-only :category
                         td :name
-                        td.hide-on-small-only :message
+                        td.hide-on-small-only.left-align :message
 
 block scripts
     script(src="/js/giftsList.js")

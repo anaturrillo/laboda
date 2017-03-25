@@ -31,15 +31,32 @@ block content
                                 span.card-title.activator.grey-text.text-darken-4 :name - $:price
                                     i.material-icons.right more_vert
                                 p
-                                    a(href=":url", target="_blank", buyPresent="", data-id=":id").orange-text REGALAR!
+                                    a(href="#modalId").confirm.orange-text REGALAR!
                             div.card-reveal
                                 span.card-title.grey-text.text-darken-4 :name - $:price
                                     i.material-icons.right close
                                 p :description
                                 p
-                                    a(href=":url", target="_blank", buyPresent="", data-id=":id").btn.orange.white-text
+                                    a(href="#modalId").confirm.btn.orange.white-text
                                         i.material-icons shopping_cart
 
+                            div#modalId.modal.white
+                                div.modal-content
+                                    h4.indigo-text.text-lighten-4 Estás por hacer tu regalo...
+                                    form
+                                        div.row
+                                            div.input-field.col.s12
+                                                textarea(name="message")#message.validate.materialize-textarea
+                                                label(for="message") Dejále un mensaje a Flor y a Lenny!
+                                        div.row
+                                            div.input-field.col.s12
+                                                input(name="fromName", type="text", required="")#fromName.validate
+                                                label(for="fromName") De parte de:
+                                        div.row
+                                            div.input-field.col.s12
+                                                a(href="", target="_blank", buyPresent="", data-id=":id", data-url=':url', data-index=":index", data-transactionId=":transactionId").btn.orange.white-text
+                                                    i.material-icons shopping_cart
+                                                a(href="#!").right.modal-action.modal-close.waves-effect.waves-amber.btn-flat.indigo.lighten-5 Cancelar
 
 block toolbar
 

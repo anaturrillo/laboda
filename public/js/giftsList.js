@@ -8,7 +8,6 @@ $(document).ready(function () {
 
   let presentsData = [];
   let filteredData = [];
-  let giftsData = null;
 
   const addCustomContent = elem => content => $(elem).html(content);
   const addMain = addCustomContent('#gift-table');
@@ -19,7 +18,7 @@ $(document).ready(function () {
     data.map(function (item, index) {
       const template = $('#gift-tr').find('tr')
           .html()
-          .replace(/:gift/g, item.presentName)
+          .replace(/:gift/g, item.name)
           .replace(/:category/g, item.category)
           .replace(/:name/g, item.fromName)
           .replace(/:message/g, item.message);
@@ -31,18 +30,17 @@ $(document).ready(function () {
   $.ajax({
     url: '/regalos/regalados'
   })
-      .done(function (presents) {
-        $('#preloader').addClass('hide');
+  .done(function (gifts) {
+    $('#preloader').addClass('hide');
 
-        if (presents.length == 0) {
-          addMain('<p>No hay regalos disponibles</p>');
-        } else {
-          giftsData = presents;
-          printGifts(presents);
-        }
-      })
-      .fail(function (err) {
-        window.location = '/error.html'
-      });
+    if (gifts.length == 0) {
+      addMain('<p>No hay regalos disponibles</p>');
+    } else {
+      printGifts(gifts);
+    }
+  })
+  .fail(function (err) {
+    window.location = '/error.html'
+  });
 
 });

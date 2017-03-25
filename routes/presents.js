@@ -13,14 +13,15 @@ const storage = multer.diskStorage({
 
 const uploadImage = multer({storage: storage});
 
-const createPresent =         require('./../services/createPresent.js');
-const editPresent =           require('./../services/editPresent.js');
-const removePresents =        require('./../services/removePresent.js');
-const getAllPresents =        require('./../services/getAllPresents.js');
-const getAvailablePresents =  require('../services/getAvailablePresents.js');
-const getCategories  =        require('../services/getCategories');
-const addCategory =           require('../services/addCategory');
-const getGifts =              require('../services/getGifts');
+const createPresent         = require('./../services/createPresent.js');
+const editPresent           = require('./../services/editPresent.js');
+const removePresents        = require('./../services/removePresent.js');
+const getAllPresents        = require('./../services/getAllPresents.js');
+const getAvailablePresents  = require('../services/getAvailablePresents.js');
+const getCategories         = require('../services/getCategories');
+const addCategory           = require('../services/addCategory');
+const getGifts              = require('../services/getGifts');
+const addGift               = require('../services/addGift');
 
 module.exports = function (connection) {
   const router = express.Router();
@@ -98,6 +99,18 @@ module.exports = function (connection) {
         })
         .catch(function(err){
           console.error("GET /regalados", err);
+          res.status(500);
+          res.json({error: err});
+        });
+  });
+
+  router.post('/regalados', function (req, res) {
+    addGift(connection, req)
+        .then(function(result){
+          res.json(result);
+        })
+        .catch(function(err){
+          console.error("POST /regalados", err);
           res.status(500);
           res.json({error: err});
         });
