@@ -31,7 +31,6 @@ module.exports = function (connection) {
       'message TEXT, ' +
       'status VARCHAR(30), ' +
       'fromName VARCHAR(255), ' +
-      'message TEXT, ' +
       'transactionId TEXT,' +
       'PRIMARY KEY (id))';
 
