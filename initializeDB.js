@@ -9,9 +9,6 @@ module.exports = function (connection) {
       'description TEXT, ' +
       'image VARCHAR(255), ' +
       'price INT, ' +
-      'status VARCHAR(30), ' +
-      'fromName VARCHAR(255), ' +
-      'message TEXT, ' +
       'url TEXT,' +
       'PRIMARY KEY (id))';
 
@@ -28,8 +25,19 @@ module.exports = function (connection) {
       'VALUES ("flor", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"), ' +
       '("lenny", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3") ';
 
+  const gifts = 'CREATE TABLE IF NOT EXISTS gifts (' +
+      'id INT AUTO_INCREMENT UNIQUE NOT NULL, ' +
+      'presentId INT, ' +
+      'message TEXT, ' +
+      'status VARCHAR(30), ' +
+      'fromName VARCHAR(255), ' +
+      'message TEXT, ' +
+      'transactionId TEXT,' +
+      'PRIMARY KEY (id))';
+
   return qp(availablePresents)
       .then(_ => qp(categories))
       .then(_ => qp(brideAndGroom))
-      .then(_ => qp(createUsers));
+      .then(_ => qp(createUsers))
+      .then(_ => qp(gifts));
 };
