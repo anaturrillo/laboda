@@ -103,6 +103,10 @@ footer p {
     color: #9fa8da;
 }
 
+.btn-flat {
+    margin-left: 5px;
+}
+
 /* PRESENT LIST */
 .present-list .row{
     background-color: white;
@@ -159,7 +163,6 @@ span.badge{
     float: none;
     display: inline-block;
 }
-
-.modal {
-    background-color: #fff;
+.error{
+    border: 1px solid red !important;
 }

@@ -17,27 +17,36 @@ html
                         i.material-icons tag_faces
                     a(href="#",data-activates="mobile-demo").button-collapse
                         i.material-icons menu
-                    ul.right.hide-on-med-and-down.desk-menu.indigo.darken-4
+                    ul.right.hide-on-med-and-down
+                        li
+                            a(href="/", title="inicio")
+                                i.material-icons home
                         li
                             a(href='#uploadNewPresent', title="agregar a la lista")
                                 i.material-icons cloud_upload
-                            li
-                                a(href="", close-session="", title="cerrar sesión")
-                                    i.material-icons exit_to_app
-                            li
-                                a(href="/", title="inicio")
-                                    i.material-icons home
+                        li
+                            a(href='#categories', title="categorias")
+                                i.material-icons settings
+                        li
+                            a(href="", close-session="", title="cerrar sesión")
+                                i.material-icons exit_to_app
+
+
                     ul#mobile-demo.side-nav
+                        li
+                            a(href="/") Inicio
+                                i.material-icons home
                         li
                             a(href='#uploadNewPresent') Crear regalo
                                 i.material-icons cloud_upload
-                            li
-                                a(href="", close-session="") Cerrar sesión
-                                    i.material-icons exit_to_app
-                            li
-                                a(href="/") Inicio
-                                    i.material-icons home
-        div#main-wrapper
+                        li
+                            a(href='#categories', title="categorias") Categorías
+                                i.material-icons settings
+                        li
+                            a(href="", close-session="") Cerrar sesión
+                                i.material-icons exit_to_app
+
+        div#container.main-wrapper
 
             block content
 
