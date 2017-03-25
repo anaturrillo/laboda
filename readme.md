@@ -4,5 +4,6 @@ Este pequeño sistema le permite a los novios crear su propia lista de regalos, 
 
 ## Compilar HTML
 
-Para compilar los archivos de .pug a .html
-```sudo pug ./views/*.pug --out ./public
+Para compilar los archivos de .pug a .html correr esta línea de comando
+```
+sudo pug ./views/*.pug --out ./public
