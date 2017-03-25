@@ -1,0 +1,62 @@
+extends layout
+block menu
+    nav
+        div.nav-wrapper.indigo.darken-4
+            a(href="/").brand-logo CASORIO
+                i.material-icons tag_faces
+            a(href="#",data-activates="mobile-demo").button-collapse
+                i.material-icons menu
+            ul.right.hide-on-med-and-down
+                li
+                    a(href="/", title="inicio")
+                        i.material-icons home
+                li
+                    a(href='/lista.html', title='lista de regalos')
+                        i.material-icons list
+                li
+                    a(href="", close-session="", title="cerrar sesión")
+                        i.material-icons exit_to_app
+
+            ul#mobile-demo.side-nav
+                li
+                    a(href="/") Inicio
+                        i.material-icons home
+                li
+                    a(href='#uploadNewPresent') Crear regalo
+                        i.material-icons cloud_upload
+                li
+                    a(href='#categories', title="categorias") Categorías
+                        i.material-icons settings
+                li
+                    a(href="", close-session="") Cerrar sesión
+                        i.material-icons exit_to_app
+
+block content
+    div#wrapper
+        div#content.gifts-list
+            div.row
+                div.col.s12
+                    h2.header.grey-text.text-darken-3 Administrá tus regalos
+
+            div.row
+                div#gifts-content.col.s12
+                    table.highlight.bordered
+                        thead
+                            tr
+                                th regalo
+                                th.hide-on-small-only categoría
+                                th de
+                                th.hide-on-small-only mensaje
+                        tbody#gifts-table
+
+
+            div.hide
+                table#gift-tr
+                    tr
+                        td :gift
+                        td.hide-on-small-only :category
+                        td :name
+                        td.hide-on-small-only.left-align :message
+
+block scripts
+    script(src="/js/giftsList.js")

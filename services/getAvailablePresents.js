@@ -33,6 +33,7 @@ module.exports = function (connection) {
             return mp.createPreference(preference)
                 .then(function (data) {
                   present.url = data.response.init_point;
+                  present.transactionId = data.response.id;
                   return present
                 }, function (err) {
                   console.error(err)

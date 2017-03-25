@@ -3,6 +3,7 @@ $(document).ready(function () {
   $('#preloader').removeClass('hide');
   $('select').material_select();
 
+
   let presentsData = [];
 
   const addCustomContent = elem => content => $(elem).html(content);
@@ -16,17 +17,22 @@ $(document).ready(function () {
 
       template += $('#present-card')
           .html()
+          .replace(/modalId/g, 'confirmation-' + index)
           .replace(/:id/g, item.id)
           .replace(/:image/g, item.image)
           .replace(/:name/g, item.name)
           .replace(/:description/g, item.description)
           .replace(/:url/g, item.url)
-          .replace(/:price/g, item.price);
+          .replace(/:price/g, item.price)
+          .replace(/:transactionId/g, item.transactionId)
+          .replace(/message/g, 'message' + index)
+          .replace(/fromName/g, 'fromName' + index)
+          .replace(/:index/g, index);
 
       $('#present-content').append(template);
+      $('.modal').modal();
     });
   };
-
 
   $.ajax({
     url: '/regalos/disponibles',
@@ -67,6 +73,49 @@ $(document).ready(function () {
         addMain('No hay ningún regalo en este rango de precios.')
       }
     }
-  })
+  });
 
+  $('#present-content').on('click', '[buyPresent]', function() {
+    event.preventDefault();
+    const buyUrl = $(this).attr('data-url');
+    const itemIndex = $(this).attr('data-index');
+    const fromName = $('#fromName' + itemIndex);
+    const message = $('#message' + itemIndex);
+    if (!fromName.val()) {
+      fromName.addClass('error')
+    } else {
+
+      const giftData = {
+        fromName: fromName.val(),
+        message: message.val().replace(/\n\r?/g, '<br />'),
+        presentId: $(this).attr('data-id'),
+        transactionId: $(this).attr('data-transactionId')
+      };
+
+      $.ajax({
+        url: '/regalos/regalados',
+        type: 'POST',
+        data: giftData
+      })
+      .done(function (data) {
+        console.log(data)
+        $('#confirmation-' + itemIndex)
+            .html('' +
+                '<div class="thanks-message">' +
+                '<p class="red-text text-accent-4 bold" >GRACIAS POR TU REGALO!!</p>' +
+                '<p>Ahora vamos a redirigirte a MercadoPago para que puedas concretar la transacción.</p>' +
+                '</div>')
+            .promise()
+            .done(function () {
+              setTimeout(function () {
+                window.location = buyUrl
+              }, 1500)
+            });
+      })
+      .fail(function (err) {
+        window.location = '/error.html';
+        console.log('fallo post /regalos/regalados')
+      });
+    }
+  });
 });

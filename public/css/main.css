@@ -166,3 +166,6 @@ span.badge{
 .error{
     border: 1px solid red !important;
 }
+.thanks-message {
+    padding:20px;
+}
