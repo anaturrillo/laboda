@@ -20,6 +20,7 @@ const getAllPresents =        require('./../services/getAllPresents.js');
 const getAvailablePresents =  require('../services/getAvailablePresents.js');
 const getCategories  =        require('../services/getCategories');
 const addCategory =           require('../services/addCategory');
+const getGifts =              require('../services/getGifts');
 
 module.exports = function (connection) {
   const router = express.Router();
@@ -85,6 +86,18 @@ module.exports = function (connection) {
         })
         .catch(function(err){
           console.error("GET /diponibles", err);
+          res.status(500);
+          res.json({error: err});
+        });
+  });
+
+  router.get('/regalados', function (req, res) {
+    getGifts(connection)
+        .then(function(presents){
+          res.json(presents);
+        })
+        .catch(function(err){
+          console.error("GET /regalados", err);
           res.status(500);
           res.json({error: err});
         });
