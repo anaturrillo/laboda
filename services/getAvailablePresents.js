@@ -7,7 +7,7 @@ module.exports = function (connection) {
 
   const qp = queryPromise(connection);
 
-  return qp('SELECT id, name, description, image, price, url FROM presents WHERE status="disponible"')
+  return qp('SELECT id, name, description, image, price, url FROM presents WHERE status="disponible" ORDER BY price')
       .then(function (presents) {
           return Promise.all(presents.map(function (present) {
             const preference = {
