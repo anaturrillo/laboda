@@ -28,6 +28,9 @@ html
                             a(href='#categories', title="categorias")
                                 i.material-icons settings
                         li
+                            a(href='/regalos-regalados.html', title='regalos regalados')
+                                i.material-icons card_giftcard
+                        li
                             a(href="", close-session="", title="cerrar sesión")
                                 i.material-icons exit_to_app
 
@@ -78,5 +81,7 @@ html
                 footer.valign-wrapper.center-align.indigo.lighten-3.white-text
                     p.valign La boda de Flor y Lenny
 
+            block generalScripts
+                script(src="/js/app.js")
+
             block scripts
-                script(src="/js/script.js")

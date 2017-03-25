@@ -7,7 +7,6 @@ $(document).ready(function () {
   $('select').material_select();
 
   let presentsData = [];
-  let filteredData = [];
 
   const addCustomContent = elem => content => $(elem).html(content);
   const addMain = addCustomContent('#presents-table');
@@ -56,14 +55,14 @@ $(document).ready(function () {
   $.ajax({
     url: '/regalos/lista'
   })
-  .done(function (data) {
+  .done(function (presents) {
     $('#preloader').addClass('hide');
 
-    if (data.length == 0) {
+    if (presents.length == 0) {
       addMain('<p>No hay regalos disponibles</p>');
     } else {
-      presentsData = data;
-      printPresents(data);
+      presentsData = presents;
+      printPresents(presents);
     }
   })
   .fail(function (err) {
@@ -75,11 +74,11 @@ $(document).ready(function () {
     url: '/regalos/categorias'
 
   })
-  .done(function (data) {
-    if (data.length == 0) {
+  .done(function (categories) {
+    if (categories.length == 0) {
       addToCategories('No hay categorías cargadas');
     } else {
-      printCategories(data);
+      printCategories(categories);
     }
 
   })
@@ -109,19 +108,6 @@ $(document).ready(function () {
     }
   });
 
-  $("[close-session]").click(function () {
-    event.preventDefault();
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    window.location = '/'
-  });
-
-  $("[uploadPresent]").click(function () {
-    const data = $('form').serializeArray();
-    if (data.every(e => e.value)) {
-      $('[submitForm]').click()
-    }
-  });
-
   $('#filterByPrice').change(function () {
     const selected = $('#filterByPrice').val();
 
@@ -134,7 +120,7 @@ $(document).ready(function () {
       all: e => e,
     };
 
-    if (presentsData && selected) {
+    if (presentsData.length && selected) {
       const results = presentsData.filter(byPriceRange[selected]);
       if(results.length) {
         printPresents(results);
@@ -151,7 +137,7 @@ $(document).ready(function () {
       return e.category == selectedCategory
     };
 
-    if (presentsData && selected) {
+    if (presentsData.length && selected) {
       const results = presentsData.filter(byCategory(selected));
       if(results.length) {
         printPresents(results);
