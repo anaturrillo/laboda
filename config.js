@@ -4,13 +4,13 @@ module.exports = {
   port: 8000,
   db_connect: {
     host     : 'localhost',
-    user     : 'root',
+    user     : 'pepe',
     password : keys.dbpass,
     database : 'laboda'
   },
   db_test_connect: {
     host     : 'localhost',
-    user     : 'root',
+    user     : 'pepe',
     password : keys.dbpass,
     database : 'test'
   },
