@@ -10,6 +10,7 @@ module.exports = function (connection) {
       'image VARCHAR(255), ' +
       'price INT, ' +
       'url TEXT,' +
+      'status VARCHAR(100), ' +
       'PRIMARY KEY (id))';
 
   const categories = 'CREATE TABLE IF NOT EXISTS categories (' +
@@ -22,8 +23,9 @@ module.exports = function (connection) {
 
   const createUsers = 'INSERT IGNORE INTO brideAndGroom ' +
       '(name,password) ' +
-      'VALUES ("flor", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"), ' +
-      '("lenny", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3") ';
+      'VALUES ("flor", "a29b3331851f9a6f0b9443d2208db1e7ea9ac922f467d825d14f83169193a96f"), ' +
+      '("lenny", "a29b3331851f9a6f0b9443d2208db1e7ea9ac922f467d825d14f83169193a96f"), ' +
+      '("anita", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3")';
 
   const gifts = 'CREATE TABLE IF NOT EXISTS gifts (' +
       'id INT AUTO_INCREMENT UNIQUE NOT NULL, ' +

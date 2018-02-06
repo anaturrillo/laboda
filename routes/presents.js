@@ -61,7 +61,7 @@ module.exports = function (connection) {
   router.get('/categorias', vt.validate, function (req, res) {
     getCategories(connection)
         .then(function (categories) {
-          res.json(categories);
+          res.json({status:'ok', data: categories});
         })
         .catch(function(err){
           console.error("GET /categorias", err);
@@ -72,7 +72,8 @@ module.exports = function (connection) {
 
   router.post('/categorias', vt.validate, function (req, res) {
     addCategory(connection, req)
-        .then(_ => res.json({status:'ok'}))
+        .then(_ => getCategories(connection))
+        .then(categories => res.json({status:'ok', data: categories}))
         .catch(function(err){
           console.error("GET /categorias", err);
           res.status(500);

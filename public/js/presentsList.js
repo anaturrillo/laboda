@@ -69,12 +69,13 @@ $(document).ready(function () {
     window.location = '/error.html'
   });
 
-  // BUSCA LAS CATGORIAS
+  // BUSCA LAS CATEGORIAS
   $.ajax({
     url: '/regalos/categorias'
 
   })
-  .done(function (categories) {
+  .done(function (response) {
+    const categories = response.data;
     if (categories.length == 0) {
       addToCategories('No hay categorías cargadas');
     } else {
@@ -158,9 +159,10 @@ $(document).ready(function () {
         type: 'post',
         data: {name: catName}
 
-      }).done(function () {
-        $('#catList').append('<div class="chip">' + catName + '</div>');
+      }).done(function (response) {
+        printCategories(response.data);
         $('#categoryName').val('')
+
       }).fail(function () {
         addToMessage('Ups, parece que no se pudo agregar la catagoria')
       })
