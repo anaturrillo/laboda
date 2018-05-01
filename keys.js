@@ -1,5 +1,5 @@
 module.exports = {
-  dbpass: "dabadabadaba",
+  dbpass: "laboda",
   Client_id: "dibidibidibi",
   Client_secret: "dubidubidubi"
 };
