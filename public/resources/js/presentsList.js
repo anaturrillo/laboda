@@ -50,15 +50,18 @@ $(document).ready(function () {
 
     $('select').material_select();
   };
-
+  console.log(document.cookie)
   // BUSCA LOS REGALOS
   $.ajax({
-    url: '/regalos/lista'
+    url: '/regalos/lista',
+    crossDomain: true
   })
-  .done(function (presents) {
+  .done(function (resp) {
+    if (resp.forbidden) window.location = 'login';
+    const presents = resp.presents;
     $('#preloader').addClass('hide');
 
-    if (presents.length == 0) {
+    if (presents.length === 0) {
       addMain('<p>No hay regalos disponibles</p>');
     } else {
       presentsData = presents;
@@ -66,10 +69,12 @@ $(document).ready(function () {
     }
   })
   .fail(function (err) {
-    window.location = '/error.html'
+
+    console.error(err)
+    window.location = 'error'
   });
 
-  // BUSCA LAS CATGORIAS
+  // BUSCA LAS CATEGORIAS
   $.ajax({
     url: '/regalos/categorias'
 
@@ -83,8 +88,8 @@ $(document).ready(function () {
 
   })
   .fail(function (err) {
-
-    window.location = '/error.html'
+    console.error(err)
+    window.location = 'error'
 
   });
 
@@ -100,10 +105,10 @@ $(document).ready(function () {
         data: {id: removeId}
       })
       .done(function () {
-        location = "/lista.html";
+        location = "lista";
       })
       .fail(function () {
-        location= "/error.html"
+        location= "error"
       })
     }
   });

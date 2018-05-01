@@ -18,20 +18,24 @@ module.exports = connection => {
     validate: function (req, res, next) {
       const qp = queryPromise(connection);
       const cookies = cookie2Object(req.headers.cookie || '');
-
+      console.log(req.cookies)
       return qp('SELECT * from brideAndGroom WHERE token=?', cookies.token)
           .then(function(result){
              if (result.length > 0) {
                next();
              } else {
-               res.status(403);
-               res.json({messaje: 'no autorizado'})
+               //res.status(403);
+               //res.json({messaje: 'no autorizado'})
+               console.info('validateToken.validate: forbidden', cookies.token)
+               //res.redirect(`boda/${req.params.id}/login`);
+               res.json({forbidden: true})
              }
 
           })
           .catch(function(e){
-            console.error("validateToken.validate: forbidden", cookies.token);
-            res.redirect('/error.html')
+            console.error("validateToken.validate: error", cookies.token, e);
+            res.status(500);
+            res.json({'error':e})
           });
     },
     login: function (req, res, next) {
@@ -43,7 +47,7 @@ module.exports = connection => {
             if (result.length == 0) {
               next()
             } else {
-              res.redirect('/lista.html')
+              res.redirect(`/boda/${req.params.id}/lista`);
             }
 
           })

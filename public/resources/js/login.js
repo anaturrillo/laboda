@@ -13,7 +13,7 @@ $(document).ready(function () {
     $.post('/login', formData)
           .done(function (resp) {
             document.cookie= "token=" + resp.token;
-            window.location = '/lista.html'
+            window.location = 'lista'
           })
           .fail(function (err) {
             alert('No autorizado');

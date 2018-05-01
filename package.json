@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/anaturrillo/laboda-back#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "jade": "^1.11.0",
     "mercadopago": "^0.5.0",

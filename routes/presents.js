@@ -29,7 +29,7 @@ module.exports = function (connection) {
 
   router.post('/', vt.validate, uploadImage.single('image'), function (req, res) {
     createPresent(connection, req)
-        .then( _ => res.redirect('/lista.html'))
+        .then( _ => res.redirect('lista'))
         .catch(function(err){
           console.error("POST /regalos", err);
           res.json({error: err});
