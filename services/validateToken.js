@@ -19,7 +19,7 @@ module.exports = connection => {
       const qp = queryPromise(connection);
       const cookies = cookie2Object(req.headers.cookie || '');
 
-      return qp('SELECT * from brideAndGroom WHERE token=?', cookies.token)
+      return qp('SELECT * from brideAndGroom WHERE token=? AND name=?', [cookies.token, cookies.name])
           .then(function(result){
              if (result.length > 0) {
                next();
@@ -30,7 +30,7 @@ module.exports = connection => {
 
           })
           .catch(function(e){
-            console.error("validateToken.validate: forbidden", cookies.token);
+            console.error("validateToken.validate: forbidden", JSON.stringify({token:cookies.token, name: cookies.name}));
             res.redirect('/error.html')
           });
     },
@@ -38,9 +38,9 @@ module.exports = connection => {
       const qp = queryPromise(connection);
       const cookies = cookie2Object(req.headers.cookie || '');
 
-      return qp('SELECT * from brideAndGroom WHERE token=?', cookies.token)
+      return qp('SELECT * from brideAndGroom WHERE token=? AND name=?', [cookies.token, cookies.name])
           .then(function(result){
-            if (result.length == 0) {
+            if (result.length === 0) {
               next()
             } else {
               res.redirect('/lista.html')
@@ -48,7 +48,7 @@ module.exports = connection => {
 
           })
           .catch(function(e){
-            console.error("validateToken.validate: forbidden", cookies.token);
+            console.error("validateToken.validate: forbidden", JSON.stringify({token:cookies.token, name: cookies.name}));
             res.status(500);
             res.json({'error': e})
           });

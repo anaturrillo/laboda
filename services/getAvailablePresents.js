@@ -2,8 +2,10 @@ const queryPromise = require('../lib/queryPromise');
 const MP = require("mercadopago");
 const c = require("../config");
 
-module.exports = function (connection) {
-  const mp = new MP(c.keys.Client_id, c.keys.Client_secret);
+module.exports = function (connection, mp) {
+  if(!mp) {
+    mp = new MP(c.keys.Client_id, c.keys.Client_secret);
+  }
 
   const qp = queryPromise(connection);
 

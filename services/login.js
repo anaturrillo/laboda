@@ -17,7 +17,8 @@ module.exports = connection => function (user) {
                   status: 200,
                   body: {
                     status: "logged_in",
-                    token: tk
+                    token: tk,
+                    name: user.name
                   }
                 }
               })
