@@ -1,0 +1,72 @@
+brideAndGroom :
+  u1 :
+    id : 0
+    name : 'pablo'
+    password : '000E02E40E441BE798211AAF86D037BACD3DEDBC8A6318CA5F9A5C72AD52FFBE'
+  u2 :
+    id : 1
+    name : 'ana'
+    password : '000E02E40E441BE798211AAF86D037BACD3DEDBC8A6318CA5F9A5C72AD52FFBE'
+  u3 :
+    id : 2
+    name : 'ana2'
+    password : '000E02E40E441BE798211AAF86D037BACD3DEDBC8A6318CA5F9A5C72AD52FFBE'
+
+wedding :
+  w1 :
+    id : 0
+    name : 'Boda Ana & Pablo'
+  w2 :
+    id : 1
+    name : 'Boda Pepe & Pepa'
+
+weddingXbride :
+  w1 :
+    wedding_id : 0
+    person_id : 0
+  w2 :
+    wedding_id : 0
+    person_id : 1
+  w3 :
+    wedding_id : 1
+    person_id : 2
+
+categories :
+  c1 :
+    name : 'Viajes'
+  c2 :
+    name : 'Ropas'
+  c3 :
+    name : 'Electrodomesticos'
+
+presents :
+  p1 :
+    id : 1
+    wedding_id : 0
+    category : 'Viajes'
+    name: 'Avion para anita'
+    description : 'Viaje en avion para anita'
+    image : http://fotografias.lasexta.com/clipping/cmsimages02/2017/12/28/C9C10BE4-38BF-4C84-81F2-36E9F056470A/58.jpg
+    price : 2000
+    status : 
+    url : http://fotografias.lasexta.com/clipping/cmsimages02/2017/12/28/C9C10BE4-38BF-4C84-81F2-36E9F056470A/58.jpg
+  p2 :
+    id : 1
+    wedding_id : 0
+    category : 'Viajes'
+    name : 'Avion para pablito'
+    description : 'Viaje en avion para pablito'
+    image : https://images3.memedroid.com/images/UPLOADED37/581cbdf714c57.jpeg
+    price : 1200
+    status : 
+    url : https://images3.memedroid.com/images/UPLOADED37/581cbdf714c57.jpeg.jpg
+  p2 :
+    id : 1
+    wedding_id : 0
+    category : 'Ropas'
+    name : 'Perro para pantalon'
+    description : 'Dos modelos distintos!'
+    image : http://cdn.smosh.com/sites/default/files/2016/01/dog-wore-pants-meme-reverse.jpg
+    price : 100
+    status : 
+    url : 'http://cdn.smosh.com/sites/default/files/2016/01/dog-wore-pants-meme-reverse.jpg'
