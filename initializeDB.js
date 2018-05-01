@@ -106,7 +106,7 @@ function ddl(qp) {
     return Promise.all([
             qp(wedding).then(e => console.log("Wedding", e)),
             qp(users).then(e => console.log("Users", e)),
-            qp(categories).then(e => console.log("Categories", e)
+            qp(categories).then(e => console.log("Categories", e))
         ])
         .then(_ => qp(weddingXusers))
         .then(_ => qp(presents));

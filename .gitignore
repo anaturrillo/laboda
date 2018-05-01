@@ -2,3 +2,5 @@
 /.idea
 /keys.js
 /public/uploads
+config.js
+keys.js

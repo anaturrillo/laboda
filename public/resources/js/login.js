@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     $.post('/login', formData)
           .done(function (resp) {
-            document.cookie= "token=" + resp.token;
+            document.cookie= "token=" + resp.token + ";path=/;";
             window.location = 'lista'
           })
           .fail(function (err) {
