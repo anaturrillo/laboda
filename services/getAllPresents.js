@@ -1,10 +1,10 @@
 const queryPromise = require('../lib/queryPromise');
 
-module.exports = function (connection) {
+module.exports = connection => function (weddingId) {
 
     const qp = queryPromise(connection);
 
     return qp(`SELECT   id, category,	name, 
                         description, image, price, 
-                        status FROM presents ORDER BY price`)
+                        status FROM presents WHERE wedding_id='${weddingId}' ORDER BY price`)
 };

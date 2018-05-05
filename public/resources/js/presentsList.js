@@ -50,11 +50,14 @@ $(document).ready(function () {
 
     $('select').material_select();
   };
-  console.log(document.cookie)
+
   // BUSCA LOS REGALOS
+  const weddingId = window.location.pathname.split('/')[2];
+
   $.ajax({
-    url: '/regalos/lista',
-    crossDomain: true
+    url: `/regalos/lista/${weddingId}`,
+    crossDomain: true,
+    data: weddingId
   })
   .done(function (resp) {
     if (resp.forbidden) window.location = 'login';

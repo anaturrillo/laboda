@@ -4,7 +4,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/../public/uploads/images/')
+    cb(null, __dirname + '/../public/resources/uploads/images/')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);
@@ -16,7 +16,7 @@ const uploadImage = multer({storage: storage});
 const createPresent         = require('./../services/createPresent.js');
 const editPresent           = require('./../services/editPresent.js');
 const removePresents        = require('./../services/removePresent.js');
-const getAllPresents        = require('./../services/getAllPresents.js');
+const getAllPresentsInit        = require('./../services/getAllPresents.js');
 const getAvailablePresents  = require('../services/getAvailablePresents.js');
 const getCategories         = require('../services/getCategories');
 const addCategory           = require('../services/addCategory');
@@ -27,7 +27,7 @@ module.exports = function (connection) {
   const router = express.Router();
   const vt = validateToken(connection);
 
-  router.post('/', vt.validate, uploadImage.single('image'), function (req, res) {
+  router.post('/:id', vt.validate, uploadImage.single('image'), function (req, res) {
     createPresent(connection, req)
         .then( _ => res.redirect('lista'))
         .catch(function(err){
@@ -36,7 +36,7 @@ module.exports = function (connection) {
         });
   });
 
-  router.delete('/', vt.validate, function (req, res) {
+  router.delete('/:id', vt.validate, function (req, res) {
     removePresents(connection, req)
         .then(_ =>  res.json({status: "ok"}))
         .catch(function (err) {
@@ -46,10 +46,12 @@ module.exports = function (connection) {
         })
   });
 
-  router.get('/lista', vt.validate, function (req, res) {
-    getAllPresents(connection)
+  router.get('/lista/:id', vt.validate, function (req, res) {
+    const getAllPresents = getAllPresentsInit(connection);
+
+    getAllPresents(req.params.id)
         .then(function (presents) {
-          res.json(presents);
+          res.json({presents});
         })
         .catch(function(err){
           console.error("GET /lista", err);

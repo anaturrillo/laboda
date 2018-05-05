@@ -17,9 +17,7 @@ module.exports = connection => {
   return {
     validate: function (req, res, next) {
       const qp = queryPromise(connection);
-      const cookies = cookie2Object(req.headers.cookie || '');
-      console.log(req.cookies)
-      return qp('SELECT * from brideAndGroom WHERE token=?', cookies.token)
+      return qp('SELECT * from brideAndGroom WHERE token=?', req.cookies.token)
           .then(function(result){
              if (result.length > 0) {
                next();
@@ -40,9 +38,8 @@ module.exports = connection => {
     },
     login: function (req, res, next) {
       const qp = queryPromise(connection);
-      const cookies = cookie2Object(req.headers.cookie || '');
 
-      return qp('SELECT * from brideAndGroom WHERE token=?', cookies.token)
+      return qp('SELECT * from brideAndGroom WHERE token=?', req.cookies.token)
           .then(function(result){
             if (result.length == 0) {
               next()

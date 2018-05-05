@@ -4,6 +4,9 @@ function dml(qp) {
     const weddingList = `CREATE TABLE IF NOT EXISTS wedding (
         id INT AUTO_INCREMENT UNIQUE NOT NULL,
         name TEXT,
+        bg TEXT,
+        MP_clientId TEXT,
+        MP_clientSecret TEXT,
         PRIMARY KEY (id)
     )`;
 
@@ -14,7 +17,6 @@ function dml(qp) {
           token VARCHAR(5),
           PRIMARY KEY (id)
       )`;
-
 
     const categories = `CREATE TABLE IF NOT EXISTS categories (
       name VARCHAR(50) UNIQUE NOT NULL,
@@ -28,7 +30,7 @@ function dml(qp) {
         FOREIGN KEY (wedding_id) REFERENCES wedding(id),
         FOREIGN KEY (person_id) REFERENCES brideAndGroom(id),
         UNIQUE (wedding_id, person_id)
-    )`
+    )`;
 
 
     const presents = `CREATE TABLE IF NOT EXISTS presents (
