@@ -5,13 +5,13 @@ module.exports = connection => function (user) {
   const qp = queryPromise(connection);
   const shaedPwd = SHA256(user.password);
 
-  return qp('SELECT * from brideAndGroom WHERE name=? AND password=?', [user.name, shaedPwd])
+  return qp('SELECT * from users WHERE name=? AND password=?', [user.name, shaedPwd])
       .then(function (row) {
         if (row.length) {
 
           const tk = Math.random().toString(36).substr(2, 5);
 
-          return qp('UPDATE brideAndGroom SET token=? WHERE name=?', [tk, user.name])
+          return qp('UPDATE users SET token=? WHERE name=?', [tk, user.name])
               .then(function () {
                 return {
                   status: 200,

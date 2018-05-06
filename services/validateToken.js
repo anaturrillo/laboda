@@ -17,14 +17,14 @@ module.exports = connection => {
   return {
     validate: function (req, res, next) {
       const qp = queryPromise(connection);
-      return qp('SELECT * from brideAndGroom WHERE token=?', req.cookies.token)
+      return qp('SELECT * from users WHERE token=?', req.cookies.token)
           .then(function(result){
              if (result.length > 0) {
                next();
              } else {
                //res.status(403);
                //res.json({messaje: 'no autorizado'})
-               console.info('validateToken.validate: forbidden', cookies.token)
+               console.info('validateToken.validate: forbidden', req.cookies.token)
                //res.redirect(`boda/${req.params.id}/login`);
                res.json({forbidden: true})
              }
@@ -39,7 +39,7 @@ module.exports = connection => {
     login: function (req, res, next) {
       const qp = queryPromise(connection);
 
-      return qp('SELECT * from brideAndGroom WHERE token=?', req.cookies.token)
+      return qp('SELECT * from users WHERE token=?', req.cookies.token)
           .then(function(result){
             if (result.length == 0) {
               next()
@@ -49,7 +49,7 @@ module.exports = connection => {
 
           })
           .catch(function(e){
-            console.error("validateToken.validate: forbidden", cookies.token);
+            console.error("validateToken.validate: forbidden", req.cookies.token);
             res.status(500);
             res.json({'error': e})
           });

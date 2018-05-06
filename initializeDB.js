@@ -1,7 +1,7 @@
 const queryPromise = require('./lib/queryPromise.js');
 
 function dml(qp) {
-    const weddingList = `CREATE TABLE IF NOT EXISTS wedding (
+    const weddingsList = `CREATE TABLE IF NOT EXISTS wedding (
         id INT AUTO_INCREMENT UNIQUE NOT NULL,
         name TEXT,
         bg TEXT,
@@ -10,7 +10,7 @@ function dml(qp) {
         PRIMARY KEY (id)
     )`;
 
-    const brideAndGroom = `CREATE TABLE IF NOT EXISTS brideAndGroom (
+    const users = `CREATE TABLE IF NOT EXISTS users (
           id INT AUTO_INCREMENT UNIQUE NOT NULL,
           name VARCHAR(10) UNIQUE NOT NULL, 
           password VARCHAR(100), 
@@ -26,12 +26,12 @@ function dml(qp) {
     )`;
 
 
-    const weddingXbirde = `CREATE TABLE IF NOT EXISTS weddingXbride (
+    const weddingXusers = `CREATE TABLE IF NOT EXISTS weddingXusers (
         wedding_id INT,
-        person_id INT,
+        user_id INT,
         FOREIGN KEY (wedding_id) REFERENCES wedding(id),
-        FOREIGN KEY (person_id) REFERENCES brideAndGroom(id),
-        UNIQUE (wedding_id, person_id)
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        UNIQUE (wedding_id, user_id)
     )`;
 
 
@@ -62,13 +62,13 @@ function dml(qp) {
           FOREIGN KEY (presentId) REFERENCES presents(id)
       )`;
 
-    return Promise.all([qp(weddingList),qp(brideAndGroom), qp(categories)])
-        .then(_ => Promise.all([qp(weddingXbirde),qp(presents)]))
+    return Promise.all([qp(weddingsList),qp(users), qp(categories)])
+        .then(_ => Promise.all([qp(weddingXusers),qp(presents)]))
         .then(_ => qp(gifts));
 }
 
 function ddl(qp) {
-    const users = `INSERT IGNORE INTO brideAndGroom
+    const users = `INSERT IGNORE INTO users
       (id, name,password) VALUES 
       (1, "pablo", "000E02E40E441BE798211AAF86D037BACD3DEDBC8A6318CA5F9A5C72AD52FFBE"), 
       (2, "ana", "000E02E40E441BE798211AAF86D037BACD3DEDBC8A6318CA5F9A5C72AD52FFBE"),
@@ -81,8 +81,8 @@ function ddl(qp) {
         (2, "Boda Pepe & Pepa")
     `;
 
-    const weddingXusers = `INSERT IGNORE INTO weddingXbride
-        (wedding_id,person_id) VALUES
+    const weddingXusers = `INSERT IGNORE INTO weddingXusers
+        (wedding_id,user_id) VALUES
         (1,1),
         (1,2),
         (2,3)
@@ -114,7 +114,7 @@ function ddl(qp) {
         .then(_ => qp(categories).then(e => console.log("Categories", e)))
         .then(_ => qp(weddingXusers))
         .then(_ => qp(presents));
-    ;
+
 
 }
 
