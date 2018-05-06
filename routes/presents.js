@@ -18,25 +18,25 @@ const editPresent           = require('./../services/editPresent.js');
 const removePresents        = require('./../services/removePresent.js');
 const getAllPresentsInit        = require('./../services/getAllPresents.js');
 const getAvailablePresents  = require('../services/getAvailablePresents.js');
-const getCategories         = require('../services/getCategories');
+const getCategoriesInit         = require('../services/getCategories');
 const addCategory           = require('../services/addCategory');
 const getGifts              = require('../services/getGifts');
 const addGift               = require('../services/addGift');
 
 module.exports = function (connection) {
-  const router = express.Router();
+  const router = express.Router({mergeParams:true});
   const vt = validateToken(connection);
 
-  router.post('/:id', vt.validate, uploadImage.single('image'), function (req, res) {
+  router.post('/', vt.validate, uploadImage.single('image'), function (req, res) {
     createPresent(connection, req)
-        .then( _ => res.redirect('lista'))
+        .then( _ => res.redirect(`/boda/${req.params.id}/lista`))
         .catch(function(err){
           console.error("POST /regalos", err);
           res.json({error: err});
         });
   });
 
-  router.delete('/:id', vt.validate, function (req, res) {
+  router.delete('/', vt.validate, function (req, res) {
     removePresents(connection, req)
         .then(_ =>  res.json({status: "ok"}))
         .catch(function (err) {
@@ -46,7 +46,7 @@ module.exports = function (connection) {
         })
   });
 
-  router.get('/lista/:id', vt.validate, function (req, res) {
+  router.get('/lista', vt.validate, function (req, res) {
     const getAllPresents = getAllPresentsInit(connection);
 
     getAllPresents(req.params.id)
@@ -61,7 +61,8 @@ module.exports = function (connection) {
   });
 
   router.get('/categorias', vt.validate, function (req, res) {
-    getCategories(connection)
+    const getCategories = getCategoriesInit(connection);
+    getCategories(req.params.id)
         .then(function (categories) {
           res.json(categories);
         })

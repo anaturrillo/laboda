@@ -28,7 +28,7 @@ initializeDB(connection)
     .then(function (row) {
       app.use('/', routes(connection));
       app.use('/login', login(connection));
-      app.use('/regalos', presents(connection));
+      app.use('/:id/regalos', presents(connection));
       app.use('/payment', payment(connection));
       app.use('/boda/:id/:file', function (req, res) {
         res.sendFile(`${req.params.file}.html`, {root: 'public'})

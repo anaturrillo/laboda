@@ -53,9 +53,8 @@ $(document).ready(function () {
 
   // BUSCA LOS REGALOS
   const weddingId = window.location.pathname.split('/')[2];
-
   $.ajax({
-    url: `/regalos/lista/${weddingId}`,
+    url: `/${weddingId}/regalos/lista`,
     crossDomain: true,
     data: weddingId
   })
@@ -72,15 +71,13 @@ $(document).ready(function () {
     }
   })
   .fail(function (err) {
-
-    console.error(err)
+    console.error(err);
     window.location = 'error'
   });
 
   // BUSCA LAS CATEGORIAS
   $.ajax({
-    url: '/regalos/categorias'
-
+    url: `/${weddingId}/regalos/categorias`
   })
   .done(function (categories) {
     if (categories.length == 0) {
