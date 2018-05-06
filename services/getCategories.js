@@ -1,8 +1,8 @@
 const queryPromise = require('../lib/queryPromise');
 
-module.exports = function (connection) {
+module.exports = connection => function (weddingId) {
 
   const qp = queryPromise(connection);
 
-  return qp('SELECT name FROM categories')
+  return qp('SELECT name FROM categories WHERE wedding_id=?', [weddingId])
 };
