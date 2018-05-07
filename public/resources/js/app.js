@@ -1,6 +1,7 @@
 (function () {
   const weddingId = window.location.pathname.split('/')[2];
-  $('#uploadPresentForm').attr('action', `/regalos/${weddingId}`);
+
+  $('#uploadPresentForm').attr('action', `/boda/${weddingId}/regalos`);
 
   $("[close-session]").click(function () {
     event.preventDefault();

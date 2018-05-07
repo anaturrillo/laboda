@@ -5,5 +5,5 @@ module.exports = function (connection, data) {
 
   const qp = queryPromise(connection);
 
-  return qp('UPDATE presents SET status=? WHERE id=?', [data.status, data.itemId]);
+  return qp('UPDATE gifts SET payment_status=? WHERE transaction_id=?', [data.status, data.transactionId]);
 };

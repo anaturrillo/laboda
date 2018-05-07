@@ -1,7 +1,7 @@
 const queryPromise = require('../lib/queryPromise');
 
-module.exports = function (connection, req) {
+module.exports = connection => function (category) {
   const qp = queryPromise(connection);
 
-  return qp('INSERT INTO categories SET name=?', req.body.name);
+  return qp('INSERT INTO categories SET ?', category);
 };

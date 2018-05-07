@@ -1,5 +1,8 @@
 
 $(document).ready(function () {
+  const weddingId = window.location.pathname.split('/')[2];
+  const route = `/boda/${weddingId}`;
+
   $('#preloader').removeClass('hide');
 
   $('.modal').modal();
@@ -52,11 +55,9 @@ $(document).ready(function () {
   };
 
   // BUSCA LOS REGALOS
-  const weddingId = window.location.pathname.split('/')[2];
   $.ajax({
-    url: `/${weddingId}/regalos/lista`,
-    crossDomain: true,
-    data: weddingId
+    url: `${route}/regalos/lista`,
+    crossDomain: true
   })
   .done(function (resp) {
     if (resp.forbidden) window.location = 'login';
@@ -77,7 +78,7 @@ $(document).ready(function () {
 
   // BUSCA LAS CATEGORIAS
   $.ajax({
-    url: `/${weddingId}/regalos/categorias`
+    url: `${route}/regalos/categorias`
   })
   .done(function (categories) {
     if (categories.length == 0) {
@@ -100,7 +101,7 @@ $(document).ready(function () {
 
     if(removeId){
       $.ajax({
-        url: '/regalos',
+        url: `${route}/regalos`,
         type: 'delete',
         data: {id: removeId}
       })
@@ -159,7 +160,7 @@ $(document).ready(function () {
       $('#categoryName').addClass('error');
     } else {
       $.ajax({
-        url: '/regalos/categorias',
+        url: `${route}/regalos/categorias`,
         type: 'post',
         data: {name: catName}
 

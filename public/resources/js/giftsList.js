@@ -1,5 +1,7 @@
 
 $(document).ready(function () {
+  const weddingId = window.location.pathname.split('/')[2];
+  const route = `/boda/${weddingId}`;
   $('#preloader').removeClass('hide');
 
   $('.modal').modal();
@@ -21,14 +23,15 @@ $(document).ready(function () {
           .replace(/:gift/g, item.name)
           .replace(/:category/g, item.category)
           .replace(/:name/g, item.fromName)
-          .replace(/:message/g, item.message);
+          .replace(/:message/g, item.message)
+          .replace(/:payment_status/g, item.payment_status);
 
       $('#gifts-table').append('<tr>' + template + '</tr>');
     });
   };
 
   $.ajax({
-    url: '/regalos/regalados'
+    url: `${route}/regalos/regalados`
   })
   .done(function (gifts) {
     $('#preloader').addClass('hide');
@@ -40,7 +43,7 @@ $(document).ready(function () {
     }
   })
   .fail(function (err) {
-    window.location = '/error.html'
+    window.location = 'error'
   });
 
 });

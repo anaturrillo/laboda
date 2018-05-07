@@ -1,5 +1,8 @@
 
 $(document).ready(function () {
+  const weddingId = window.location.pathname.split('/')[2];
+  const route = `/boda/${weddingId}`;
+
   $('#preloader').removeClass('hide');
   $('select').material_select();
 
@@ -24,7 +27,7 @@ $(document).ready(function () {
           .replace(/:description/g, item.description)
           .replace(/:url/g, item.url)
           .replace(/:price/g, item.price)
-          .replace(/:transactionId/g, item.transactionId)
+          .replace(/:transactionId/g, item.transaction_id)
           .replace(/message/g, 'message' + index)
           .replace(/fromName/g, 'fromName' + index)
           .replace(/:index/g, index);
@@ -35,7 +38,7 @@ $(document).ready(function () {
   };
 
   $.ajax({
-    url: '/regalos/disponibles',
+    url: `${route}/regalos/disponibles`,
     type: 'GET'
   })
   .done(function (data) {
@@ -49,7 +52,7 @@ $(document).ready(function () {
     }
   })
   .fail(function (err) {
-    window.location = '/error.html';
+    window.location = 'error';
     console.log('fallo get /regalos/lista')
   });
 
@@ -88,12 +91,12 @@ $(document).ready(function () {
       const giftData = {
         fromName: fromName.val(),
         message: message.val().replace(/\n\r?/g, '<br />'),
-        presentId: $(this).attr('data-id'),
-        transactionId: $(this).attr('data-transactionId')
+        present_id: $(this).attr('data-id'),
+        transaction_id: $(this).attr('data-transactionId')
       };
 
       $.ajax({
-        url: '/regalos/regalados',
+        url: `${route}/regalos/regalados`,
         type: 'POST',
         data: giftData
       })
@@ -113,7 +116,7 @@ $(document).ready(function () {
             });
       })
       .fail(function (err) {
-        window.location = '/error.html';
+        window.location = 'error';
         console.log('fallo post /regalos/regalados')
       });
     }

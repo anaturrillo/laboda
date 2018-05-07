@@ -13,23 +13,41 @@ const storage = multer.diskStorage({
 
 const uploadImage = multer({storage: storage});
 
-const createPresent         = require('./../services/createPresent.js');
+const createPresentInit     = require('./../services/createPresent.js');
 const editPresent           = require('./../services/editPresent.js');
-const removePresents        = require('./../services/removePresent.js');
-const getAllPresentsInit        = require('./../services/getAllPresents.js');
-const getAvailablePresents  = require('../services/getAvailablePresents.js');
-const getCategoriesInit         = require('../services/getCategories');
-const addCategory           = require('../services/addCategory');
-const getGifts              = require('../services/getGifts');
-const addGift               = require('../services/addGift');
+const removePresentsInit        = require('./../services/removePresent.js');
+const getAllPresentsInit    = require('./../services/getAllPresents.js');
+const getAvailablePresentsInit  = require('../services/getAvailablePresents.js');
+const getCategoriesInit     = require('../services/getCategories');
+const addCategoryInit       = require('../services/addCategory');
+const getGiftsInit          = require('../services/getGifts');
+const addGiftInit           = require('../services/addGift');
 
 module.exports = function (connection) {
-  const router = express.Router({mergeParams:true});
-  const vt = validateToken(connection);
+  const router         = express.Router({mergeParams:true});
+
+  const vt                   = validateToken(connection);
+  const createPresent        = createPresentInit(connection);
+  const getAllPresents       = getAllPresentsInit(connection);
+  const removePresents       = removePresentsInit(connection);
+  const getCategories        = getCategoriesInit(connection);
+  const addCategory          = addCategoryInit(connection);
+  const getGifts              = getGiftsInit(connection);
+  const addGift              = addGiftInit(connection);
+  const getAvailablePresents = getAvailablePresentsInit(connection);
 
   router.post('/', vt.validate, uploadImage.single('image'), function (req, res) {
-    createPresent(connection, req)
-        .then( _ => res.redirect(`/boda/${req.params.id}/lista`))
+    const weddingId = req.params.id;
+    const present = {... req.body, wedding_id: weddingId};
+
+    if (req.file) {
+      present.image = req.file.filename;
+    } else {
+      present.image = 'default.jpg'
+    }
+
+    createPresent(present)
+        .then( _ => res.redirect(`/boda/${weddingId}/lista`))
         .catch(function(err){
           console.error("POST /regalos", err);
           res.json({error: err});
@@ -37,7 +55,8 @@ module.exports = function (connection) {
   });
 
   router.delete('/', vt.validate, function (req, res) {
-    removePresents(connection, req)
+    const presentId = req.body.id;
+    removePresents(presentId)
         .then(_ =>  res.json({status: "ok"}))
         .catch(function (err) {
           console.error("Error in DELETE /present", err);
@@ -47,9 +66,9 @@ module.exports = function (connection) {
   });
 
   router.get('/lista', vt.validate, function (req, res) {
-    const getAllPresents = getAllPresentsInit(connection);
+    const weddingId = req.params.id;
 
-    getAllPresents(req.params.id)
+    getAllPresents(weddingId)
         .then(function (presents) {
           res.json({presents});
         })
@@ -61,8 +80,9 @@ module.exports = function (connection) {
   });
 
   router.get('/categorias', vt.validate, function (req, res) {
-    const getCategories = getCategoriesInit(connection);
-    getCategories(req.params.id)
+    const weddingId = req.params.id;
+
+    getCategories(weddingId)
         .then(function (categories) {
           res.json(categories);
         })
@@ -74,7 +94,10 @@ module.exports = function (connection) {
   });
 
   router.post('/categorias', vt.validate, function (req, res) {
-    addCategory(connection, req)
+    const weddingId = req.params.id;
+    const category = {... req.body, wedding_id: weddingId};
+
+    addCategory(category)
         .then(_ => res.json({status:'ok'}))
         .catch(function(err){
           console.error("GET /categorias", err);
@@ -84,7 +107,7 @@ module.exports = function (connection) {
   });
 
   router.get('/disponibles', function (req, res) {
-    getAvailablePresents(connection)
+    getAvailablePresents(req.params.id)
         .then(function(presents){
           res.json(presents);
         })
@@ -96,7 +119,7 @@ module.exports = function (connection) {
   });
 
   router.get('/regalados', function (req, res) {
-    getGifts(connection)
+    getGifts(req.params.id)
         .then(function(presents){
           res.json(presents);
         })
@@ -108,7 +131,8 @@ module.exports = function (connection) {
   });
 
   router.post('/regalados', function (req, res) {
-    addGift(connection, req)
+    const gift = {... req.body, wedding_id: req.params.id};
+    addGift(gift)
         .then(function(result){
           res.json(result);
         })

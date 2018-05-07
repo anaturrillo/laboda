@@ -34,7 +34,6 @@ block content
                                 th.hide-on-small-only descripción
                                 th.hide-on-small-only imagen
                                 th precio
-                                th estado
                                 th
                         tbody#presents-table
 
@@ -49,8 +48,6 @@ block content
                         td.hide-on-small-only
                             img(src="/uploads/images/:image").responsive-img
                         td $:price
-                        td
-                            span(class=":status", data-badge-caption=":status").badge.new
                         td
                             a(href="", data-id=":id").removeItem.btn-floating.grey.darken-2
                                 i(data-id=":id").material-icons delete

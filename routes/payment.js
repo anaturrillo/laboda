@@ -1,10 +1,12 @@
 const express = require('express');
 const MP = require("mercadopago");
 const c = require('../config');
+const queryPromise = require('../lib/queryPromise');
 const updateStatus = require('../services/updateStatus');
 
 module.exports = function (connection) {
   const router = express.Router();
+  const qp = queryPromise(connection);
 
   router.get('/success', function (req, res) {
     res.redirect('/')
@@ -34,28 +36,37 @@ module.exports = function (connection) {
   });
 
   router.post('/notification', function (req, res) {
-    const mp = new MP(c.keys.Client_id, c.keys.Client_secret);
-
     res.status(200);
     res.send('ok');
+    const weddingId = req.query.weddingId;
+    return qp('SELECT MP_clientId, MP_clientSecret FROM wedding WHERE id=?', weddingId)
+      .then(function (MPdata) {
+        const mp = new MP(MPdata[0].MP_clientId, MPdata[0].MP_clientSecret);
+        if (!req.query.id) return;
 
-    mp.get("/collections/notifications/" + req.query.id)
-        .then(function (payment_info) {
-          return mp.get ("/merchant_orders/" + payment_info.response.collection.merchant_order_id)
-        })
-        .then(function (mo) {
-          console.log('devuelve la merchant_order');
-          const status = mo.response.payments[0].status == 'rejected' ? 'disponible' : mo.response.payments[0].status;
-          const updateData = {
-            itemId: mo.response.items[0].id,
-            status: statusConverter[mo.response.payments[0].status]
-          };
+        if (req.body.topic === 'merchant_order') {
+          return mp.get (`/merchant_orders/${req.query.id}`)
+        } else {
+          return mp.get(`/v1/payments/${req.query.id}`)
+            .then(function (paymentInfo) {
+              return mp.get(`/merchant_orders/${paymentInfo.response.order.id}`)
+            })
+        }
+      })
+      .then(function (mo) {
+        if (!mo || mo.response.payments.length === 0) return;
+        const updateData = {
+          transactionId: mo.response.preference_id,
+          status: statusConverter[mo.response.payments[0].status]
+        };
 
-          return updateStatus(connection, updateData)
-        })
-        .catch(function (err) {
-          console.error('falló update del regalo', err)
-        });
+        return updateStatus(connection, updateData)
+      })
+      .catch(function (err) {
+        console.error('falló update del regalo', err)
+      });
+
+
   });
 
   return router
@@ -64,11 +75,11 @@ module.exports = function (connection) {
 const statusConverter = {
   pending: 'pendiente',
   approved: 'aprobado',
-  in_process: 'proceso',
+  in_process: 'en proceso',
   in_mediation: 'mediacion',
-  rejected: 'disponible', // no me importa q haya sido rechazado, esta disponible para el sistema
-  cancelled: 'disponible',
-  refunded: 'disponible',
-  charged_back: 'disponible'
+  rejected: 'rechazado',
+  cancelled: 'cancelado',
+  refunded: 'devuelto',
+  charged_back: 'recargado'
 
 };

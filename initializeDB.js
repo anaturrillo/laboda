@@ -43,7 +43,6 @@ function dml(qp) {
           description TEXT, 
           image VARCHAR(255), 
           price INT, 
-          status TEXT,
           url TEXT,
           PRIMARY KEY (id),
           FOREIGN KEY (wedding_id) REFERENCES wedding(id),
@@ -53,13 +52,14 @@ function dml(qp) {
     const gifts = `CREATE TABLE IF NOT EXISTS gifts (
           id INT AUTO_INCREMENT UNIQUE NOT NULL, 
           wedding_id INT,
-          presentId INT, 
+          present_id INT, 
           message TEXT, 
           fromName VARCHAR(255), 
-          transactionId TEXT,
+          transaction_id TEXT,
+          payment_status TEXT,
           PRIMARY KEY (id),
           FOREIGN KEY (wedding_id) REFERENCES wedding(id),
-          FOREIGN KEY (presentId) REFERENCES presents(id)
+          FOREIGN KEY (present_id) REFERENCES presents(id)
       )`;
 
     return Promise.all([qp(weddingsList),qp(users), qp(categories)])
@@ -76,9 +76,9 @@ function ddl(qp) {
     `; //anita
 
     const wedding = `INSERT IGNORE INTO wedding 
-        (id, name) VALUES
-        (1, "Boda Ana & Pablo"),
-        (2, "Boda Pepe & Pepa")
+        (id, name, MP_clientId, MP_clientSecret) VALUES
+        (1, "Boda Ana & Pablo", "3992386080570486", "E0bUQozOCsBc9A1wzGpSW6sMoQVamL1a"),
+        (2, "Boda Pepe & Pepa", "", "")
     `;
 
     const weddingXusers = `INSERT IGNORE INTO weddingXusers
@@ -96,15 +96,15 @@ function ddl(qp) {
         `;
 
     const presents = `INSERT IGNORE INTO presents
-        (id, wedding_id, category, name, description, image, price, status, url) VALUES
+        (id, wedding_id, category, name, description, image, price, url) VALUES
         (1, 1, "Viajes", "Avion para anita", "Viaje en avion para anita", 
-            "https://images3.memedroid.com/images/UPLOADED37/581cbdf714c57.jpeg", 1300, "", 
+            "https://images3.memedroid.com/images/UPLOADED37/581cbdf714c57.jpeg", 1300,
             "https://images3.memedroid.com/images/UPLOADED37/581cbdf714c57.jpeg"),
         (2, 1, "Viajes", "Avion para pablito", "Viaje en avion para pablito", 
-            "http://fotografias.lasexta.com/clipping/cmsimages02/2017/12/28/C9C10BE4-38BF-4C84-81F2-36E9F056470A/58.jpg", 2000, "", 
+            "http://fotografias.lasexta.com/clipping/cmsimages02/2017/12/28/C9C10BE4-38BF-4C84-81F2-36E9F056470A/58.jpg", 2000, 
             "http://fotografias.lasexta.com/clipping/cmsimages02/2017/12/28/C9C10BE4-38BF-4C84-81F2-36E9F056470A/58.jpg"),
         (3, 1, "Ropas", "Perro para pantalon", "Dos modelos distintos!", 
-            "http://cdn.smosh.com/sites/default/files/2016/01/dog-wore-pants-meme-reverse.jpg", 130, "", 
+            "http://cdn.smosh.com/sites/default/files/2016/01/dog-wore-pants-meme-reverse.jpg", 130, 
             "http://cdn.smosh.com/sites/default/files/2016/01/dog-wore-pants-meme-reverse.jpg")
     `;
     return Promise.all([
@@ -114,7 +114,6 @@ function ddl(qp) {
         .then(_ => qp(categories).then(e => console.log("Categories", e)))
         .then(_ => qp(weddingXusers))
         .then(_ => qp(presents));
-
 
 }
 
