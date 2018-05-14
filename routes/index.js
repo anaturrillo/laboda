@@ -13,9 +13,5 @@ module.exports = function (connection) {
     res.redirect(`/boda/${req.params.id}/login`);
   });
 
-  router.get('/error', function (req, res) {
-    res.render('error')
-  });
-
   return router
 };

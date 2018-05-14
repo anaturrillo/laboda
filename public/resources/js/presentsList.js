@@ -81,7 +81,7 @@ $(document).ready(function () {
     url: `${route}/regalos/categorias`
   })
   .done(function (categories) {
-    if (categories.length == 0) {
+    if (categories.length === 0) {
       addToCategories('No hay categorías cargadas');
     } else {
       printCategories(categories);
@@ -89,7 +89,7 @@ $(document).ready(function () {
 
   })
   .fail(function (err) {
-    console.error(err)
+    console.error(err);
     window.location = 'error'
 
   });
@@ -106,12 +106,38 @@ $(document).ready(function () {
         data: {id: removeId}
       })
       .done(function () {
-        location = "lista";
+        $('.undo').fadeIn();
+        $('.undo p span').html(removeId);
+        $('.undo p a').attr('data-id', removeId);
+
+        setTimeout(function () {
+          $('.undo').fadeOut();
+          location = 'lista'
+        }, 3000)
       })
       .fail(function () {
         location= "error"
       })
     }
+  });
+
+  // RESTAURA REGALOS
+  $('#undo').click(function () {
+    event.preventDefault();
+    const removeId = $(event.target).attr('data-id');
+
+    $.ajax({
+      url: `${route}/regalos`,
+      type: 'patch',
+      data: {id: removeId, present: {deleted: 'N'}}
+    })
+      .done(function () {
+        $('.undo').fadeOut();
+        location = 'lista'
+      })
+      .fail(function () {
+        location= "error"
+      })
   });
 
   $('#filterByPrice').change(function () {

@@ -1,7 +1,8 @@
 const keys = require('./keys.js');
 
 module.exports = {
-  port: 8000,
+  port: process.env.PORT,
+  host: process.env.HOST,
   db_connect: {
     host     : 'localhost',
     user     : 'pepe',

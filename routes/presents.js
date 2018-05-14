@@ -1,5 +1,6 @@
 const express = require('express');
 const validateToken = require('./../services/validateToken');
+const config = require('../config');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -13,37 +14,40 @@ const storage = multer.diskStorage({
 
 const uploadImage = multer({storage: storage});
 
-const createPresentInit     = require('./../services/createPresent.js');
-const editPresent           = require('./../services/editPresent.js');
+const createPresentInit         = require('./../services/createPresent.js');
+const editPresent               = require('./../services/editPresent.js');
 const removePresentsInit        = require('./../services/removePresent.js');
-const getAllPresentsInit    = require('./../services/getAllPresents.js');
+const getAllPresentsInit        = require('./../services/getAllPresents.js');
 const getAvailablePresentsInit  = require('../services/getAvailablePresents.js');
-const getCategoriesInit     = require('../services/getCategories');
-const addCategoryInit       = require('../services/addCategory');
-const getGiftsInit          = require('../services/getGifts');
-const addGiftInit           = require('../services/addGift');
+const getCategoriesInit         = require('../services/getCategories');
+const addCategoryInit           = require('../services/addCategory');
+const getGiftsInit              = require('../services/getGifts');
+const addGiftInit               = require('../services/addGift');
+const restorePresentsInit       = require('../services/updatePresents');
+const getPresentInit            = require('../services/getPresent');
 
 module.exports = function (connection) {
-  const router         = express.Router({mergeParams:true});
-
+  const router               = express.Router({mergeParams:true});
   const vt                   = validateToken(connection);
   const createPresent        = createPresentInit(connection);
   const getAllPresents       = getAllPresentsInit(connection);
   const removePresents       = removePresentsInit(connection);
   const getCategories        = getCategoriesInit(connection);
   const addCategory          = addCategoryInit(connection);
-  const getGifts              = getGiftsInit(connection);
+  const getGifts             = getGiftsInit(connection);
   const addGift              = addGiftInit(connection);
   const getAvailablePresents = getAvailablePresentsInit(connection);
+  const restorePresents      = restorePresentsInit(connection);
+  const getPresent           = getPresentInit(connection);
 
   router.post('/', vt.validate, uploadImage.single('image'), function (req, res) {
     const weddingId = req.params.id;
     const present = {... req.body, wedding_id: weddingId};
 
     if (req.file) {
-      present.image = req.file.filename;
+      present.image = `http://${config.host}:${config.port}/uploads/images/${req.file.filename}`;
     } else {
-      present.image = 'default.jpg'
+      present.image = `http://${config.host}:${config.port}/uploads/images/default.jpg`;
     }
 
     createPresent(present)
@@ -63,6 +67,22 @@ module.exports = function (connection) {
           res.status(500);
           res.json({status: "error"})
         })
+  });
+
+  router.patch('/', vt.validate, function (req, res) {
+    const presentId = req.body.id;
+    const newFields = req.body.present;
+    getPresent(presentId)
+      .then(function (present) {
+        const updatedPresent = {...present[0], ...newFields};
+        return restorePresents(updatedPresent)
+          .then(_ =>  res.json({status: "ok"}))
+      })
+      .catch(function (err) {
+        console.error("Error in PATCH /present", err);
+        res.status(500);
+        res.json({status: "error"})
+      })
   });
 
   router.get('/lista', vt.validate, function (req, res) {

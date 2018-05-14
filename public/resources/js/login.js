@@ -1,5 +1,7 @@
 
 $(document).ready(function () {
+  $('.loader').fadeOut();
+
   $('#login').submit(function (evt) {
     event.preventDefault();
 

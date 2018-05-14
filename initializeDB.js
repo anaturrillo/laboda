@@ -44,6 +44,7 @@ function dml(qp) {
           image VARCHAR(255), 
           price INT, 
           url TEXT,
+          deleted CHAR(1) DEFAULT 'N',
           PRIMARY KEY (id),
           FOREIGN KEY (wedding_id) REFERENCES wedding(id),
           FOREIGN KEY (category) REFERENCES categories(name)

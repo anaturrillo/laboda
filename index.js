@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 
 const routes = require('./routes');
@@ -8,6 +8,7 @@ const presents = require('./routes/presents');
 const login = require('./routes/login');
 const payment = require('./routes/payment');
 const initializeDB = require('./initializeDB');
+const validate = require('./routes/validate');
 
 const config = require('./config');
 const port = config.port;
@@ -29,6 +30,7 @@ initializeDB(connection)
       app.use('/', routes(connection));
       app.use('/login', login(connection));
       app.use('/boda/:id/regalos', presents(connection));
+      app.use('/boda/:id/validate', validate(connection));
       app.use('/payment', payment(connection));
       app.use('/boda/:id/:file', function (req, res) {
         res.sendFile(`${req.params.file}.html`, {root: 'public'})

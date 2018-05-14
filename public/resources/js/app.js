@@ -6,7 +6,7 @@
   $("[close-session]").click(function () {
     event.preventDefault();
     document.cookie = "token=; expires=Thu, 01 Jan 2019 00:00:00 UTC; path=/;";
-    window.location = '/'
+    window.location = `/boda/${weddingId}/index`
   });
 
   $("[uploadPresent]").click(function () {

@@ -14,7 +14,7 @@ module.exports = connection => function (weddingId) {
       const mp = new MP(MPdata[0].MP_clientId, MPdata[0].MP_clientSecret);
       const backUrl = `${dom}/boda/${weddingId}/gracias`;
 
-      return qp('SELECT id, name, description, image, price, url FROM presents WHERE wedding_id=? ORDER BY price', weddingId)
+      return qp('SELECT id, name, description, image, price, url FROM presents WHERE wedding_id=? AND deleted =\'N\' ORDER BY price', weddingId)
         .then(function (presents) {
           return Promise.all(presents.map(function (present) {
             const preference = {

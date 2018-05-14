@@ -17,7 +17,6 @@ $(document).ready(function () {
 
     data.map(function (item, index) {
       let template = '';
-
       template += $('#present-card')
           .html()
           .replace(/modalId/g, 'confirmation-' + index)

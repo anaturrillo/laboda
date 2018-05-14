@@ -1,6 +1,11 @@
 extends layout
 
 block content
+    div.undo.blue.lighten-5
+        p.text Se ha borrado el regalo de ID: #[span ].
+            a#undo.amber-text.text-darken-3(href="") DESHACER
+    div.loader
+        img(src="/images/heart.gif")
     div#wrapper
         div#content.present-list
             div.row
@@ -46,7 +51,7 @@ block content
                         td :name
                         td.hide-on-small-only :description
                         td.hide-on-small-only
-                            img(src="/uploads/images/:image").responsive-img
+                            img(src=":image").responsive-img
                         td $:price
                         td
                             a(href="", data-id=":id").removeItem.btn-floating.grey.darken-2
@@ -101,4 +106,5 @@ block content
                             div.input-field.col.s12
                                 p#catMessage
 block scripts
+    script(src="/js/validateLogin.js")
     script(src="/js/presentsList.js")

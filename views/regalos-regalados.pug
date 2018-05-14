@@ -32,6 +32,8 @@ block menu
                         i.material-icons exit_to_app
 
 block content
+    div.loader
+        img(src="/images/heart.gif")
     div#wrapper
         div#content.gifts-list
             div.row
@@ -61,4 +63,5 @@ block content
                         td :payment_status
 
 block scripts
+    script(src="/js/validateLogin.js")
     script(src="/js/giftsList.js")

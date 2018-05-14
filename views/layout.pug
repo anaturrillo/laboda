@@ -1,6 +1,8 @@
 html
     head
         title casorio!
+        link(rel="shortcut icon" href="favicon.ico" type="image/x-icon")
+        link(rel="icon" href="favicon.ico" type="image/x-icon")
         link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
         script(src="/js/materialize.js")
@@ -9,13 +11,14 @@ html
         link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
     body
+
         block background
         block menu
             nav
                 div.nav-wrapper.indigo.darken-4
                     a(href="index").brand-logo CASORIO
                         i.material-icons tag_faces
-                    a(href="#",data-activates="mobile-demo").button-collapse
+                    a(href="#", data-activates="mobile-demo").button-collapse
                         i.material-icons menu
                     ul.right.hide-on-med-and-down
                         li
@@ -80,6 +83,8 @@ html
             block footer
                 footer.valign-wrapper.center-align.indigo.lighten-3.white-text
                     p.valign La boda de Flor y Lenny
+                    p
+                        a(href="https://loading.io/spinner/double-rignt/") heart loader by loading.io
 
             block generalScripts
                 script(src="/js/app.js")

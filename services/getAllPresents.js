@@ -6,5 +6,5 @@ module.exports = connection => function (weddingId) {
 
     return qp(`SELECT   id, category,	name, 
                         description, image, price 
-                        FROM presents WHERE wedding_id=? ORDER BY price`, weddingId)
+                        FROM presents WHERE wedding_id=? AND deleted =\'N\' ORDER BY price`, weddingId)
 };

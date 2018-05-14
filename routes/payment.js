@@ -66,7 +66,6 @@ module.exports = function (connection) {
         console.error('falló update del regalo', err)
       });
 
-
   });
 
   return router
