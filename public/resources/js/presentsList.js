@@ -30,7 +30,7 @@ $(document).ready(function () {
           .replace(/:price/g, item.price)
           .replace(/:status/g, item.status);
 
-      $('#presents-table').append('<tr>' + template + '</tr>');
+      $('#presents-table').append(`<tr class="presentRow${item.id}">`+ template + '</tr>');
     });
   };
 
@@ -100,6 +100,8 @@ $(document).ready(function () {
     const removeId = $(event.target).attr('data-id');
 
     if(removeId){
+      $(`.presentRow${removeId}`).fadeOut();
+
       $.ajax({
         url: `${route}/regalos`,
         type: 'delete',
@@ -107,13 +109,20 @@ $(document).ready(function () {
       })
       .done(function () {
         $('.undo').fadeIn();
-        $('.undo p span').html(removeId);
+        $('.undo p .removeId').html(removeId);
         $('.undo p a').attr('data-id', removeId);
+        let duration = 9;
+        setInterval(function () {
+          if (duration > 0) $('.timer').html(duration);
+          duration -= 1
+        }, 1000);
 
         setTimeout(function () {
           $('.undo').fadeOut();
-          location = 'lista'
-        }, 3000)
+          location = 'lista';
+        }, 10000);
+
+
       })
       .fail(function () {
         location= "error"
