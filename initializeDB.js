@@ -1,7 +1,7 @@
 const queryPromise = require('./lib/queryPromise.js');
 
 function dml(qp) {
-    const weddingsList = `CREATE TABLE IF NOT EXISTS wedding (
+    const weddingsList = `CREATE TABLE IF NOT EXISTS weddings (
         id INT AUTO_INCREMENT UNIQUE NOT NULL,
         name TEXT,
         bg TEXT,
@@ -22,14 +22,14 @@ function dml(qp) {
       name VARCHAR(50) UNIQUE NOT NULL,
       wedding_id INT,
       PRIMARY KEY (name),
-      FOREIGN KEY (wedding_id) REFERENCES wedding(id)
+      FOREIGN KEY (wedding_id) REFERENCES weddings(id)
     )`;
 
 
     const weddingXusers = `CREATE TABLE IF NOT EXISTS weddingXusers (
         wedding_id INT,
         user_id INT,
-        FOREIGN KEY (wedding_id) REFERENCES wedding(id),
+        FOREIGN KEY (wedding_id) REFERENCES weddings(id),
         FOREIGN KEY (user_id) REFERENCES users(id),
         UNIQUE (wedding_id, user_id)
     )`;
@@ -46,7 +46,7 @@ function dml(qp) {
           url TEXT,
           deleted CHAR(1) DEFAULT 'N',
           PRIMARY KEY (id),
-          FOREIGN KEY (wedding_id) REFERENCES wedding(id),
+          FOREIGN KEY (wedding_id) REFERENCES weddings(id),
           FOREIGN KEY (category) REFERENCES categories(name)
       )`;
 
@@ -59,7 +59,7 @@ function dml(qp) {
           transaction_id TEXT,
           payment_status TEXT,
           PRIMARY KEY (id),
-          FOREIGN KEY (wedding_id) REFERENCES wedding(id),
+          FOREIGN KEY (wedding_id) REFERENCES weddings(id),
           FOREIGN KEY (present_id) REFERENCES presents(id)
       )`;
 
@@ -76,7 +76,7 @@ function ddl(qp) {
       (3, "juancho", "000E02E40E441BE798211AAF86D037BACD3DEDBC8A6318CA5F9A5C72AD52FFBE")
     `; //anita
 
-    const wedding = `INSERT IGNORE INTO wedding 
+    const wedding = `INSERT IGNORE INTO weddings 
         (id, name, MP_clientId, MP_clientSecret) VALUES
         (1, "Boda Ana & Pablo", "3992386080570486", "E0bUQozOCsBc9A1wzGpSW6sMoQVamL1a"),
         (2, "Boda Pepe & Pepa", "", "")

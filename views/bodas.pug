@@ -1,0 +1,80 @@
+html
+    head
+        title casorio!
+        link(rel="shortcut icon" href="favicon.ico" type="image/x-icon")
+        link(rel="icon" href="favicon.ico" type="image/x-icon")
+        link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+        script(src="/js/materialize.js")
+        link(href='/css/materialize/css/materialize.min.css', rel='stylesheet', type='text/css')
+        link(href='/css/main.css', rel='stylesheet', type='text/css')
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    body
+
+        block background
+        block menu
+            nav
+                div.nav-wrapper.indigo.darken-4
+                    a(href="").brand-logo CASORIO
+                        i.material-icons tag_faces
+
+        div#container.main-wrapper
+
+            block content
+                div.row
+                    div.col.s12
+                        h2.header.grey-text.text-darken-3 Seleccioná una boda:
+                div.row
+                    div.col.s12
+                        form
+                            div.row
+                                div.col.s12.m6.l4
+                                    input#searchWedding(placeholder='Escribí el nombre de los novios')
+
+                div.row
+                    div#weddings-content.col.s12
+                        table.highlight.bordered
+                            thead
+                                tr
+                                    th.hide-on-small-only id
+                                    th.hide-on-small-only categoría
+                                    th nombre
+                                    th.hide-on-small-only descripción
+                                    th.hide-on-small-only imagen
+                                    th precio
+                                    th
+                            tbody#weddings-table
+
+
+                div.hide
+                    table#wedding-tr
+                        tr
+                            td.hide-on-small-only :id
+                            td.hide-on-small-only :category
+                            td :name
+                            td.hide-on-small-only :description
+                            td.hide-on-small-only
+                                img(src=":image").responsive-img
+                            td $:price
+                            td
+                                a(href="", data-id=":id").removeItem.btn-floating.grey.darken-2
+                                    i(data-id=":id").material-icons delete
+
+            block preloader
+                div#preloader.preloader-wrapper.big.active.hide
+                    div.spinner-layer.spinner-blue-only
+                        div.circle-clipper.left
+                            div.circle
+                        div.gap-patch
+                            div.circle
+                        div.circle-clipper.right
+                            div.circle
+
+
+            block footer
+                footer.valign-wrapper.center-align.indigo.lighten-3.white-text
+                    p.valign Casorio!! Alegría! Alegría!
+
+            block scripts
+                script(src="/js/weddingsList.js")

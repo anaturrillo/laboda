@@ -111,7 +111,7 @@ $(document).ready(function () {
         $('.undo').fadeIn();
         $('.undo p .removeId').html(removeId);
         $('.undo p a').attr('data-id', removeId);
-        let duration = 9;
+        let duration = 4;
         setInterval(function () {
           if (duration > 0) $('.timer').html(duration);
           duration -= 1
@@ -120,7 +120,7 @@ $(document).ready(function () {
         setTimeout(function () {
           $('.undo').fadeOut();
           location = 'lista';
-        }, 10000);
+        }, 5000);
 
 
       })

@@ -9,6 +9,7 @@ const login = require('./routes/login');
 const payment = require('./routes/payment');
 const initializeDB = require('./initializeDB');
 const validate = require('./routes/validate');
+const weddings = require('./routes/weddings');
 
 const config = require('./config');
 const port = config.port;
@@ -29,6 +30,7 @@ initializeDB(connection)
     .then(function (row) {
       app.use('/', routes(connection));
       app.use('/login', login(connection));
+      app.use('/boda', weddings(connection));
       app.use('/boda/:id/regalos', presents(connection));
       app.use('/boda/:id/validate', validate(connection));
       app.use('/payment', payment(connection));
